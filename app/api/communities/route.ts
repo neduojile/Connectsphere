@@ -14,8 +14,8 @@ export async function GET() {
       });
 
     const formatted =
-      communities.map(
-        (community) => ({
+    communities.map(
+  (community: any) => ({
           ...community,
           memberCount:
             community.memberships
