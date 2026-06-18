@@ -1,47 +1,59 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+import AppLayout from "@/components/layout/AppLayout";
+import DashboardHero from "@/components/dashboard/DashboardHero";
+import MentorRecommendations from "@/components/dashboard/MentorRecommendations";
+import AIWidget from "@/components/dashboard/AIWidget";
+import StatsGrid from "@/components/dashboard/StatsGrid";
+import OnboardingModal from "@/components/onboarding/OnboardingModal";
+
 export default function DashboardPage() {
+  const [showOnboarding, setShowOnboarding] =
+    useState(false);
+
+  useEffect(() => {
+    const storedUser =
+      localStorage.getItem(
+        "connectsphere_user"
+      );
+
+    if (!storedUser) return;
+
+    const user =
+      JSON.parse(storedUser);
+
+   if (
+  !user?.profile ||
+  !user?.profile?.careerGoal
+) {
+  setShowOnboarding(true);
+}
+  }, []);
+
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold">
-          Dashboard
-        </h1>
+    <AppLayout>
 
-        <p className="mt-2 text-zinc-400">
-          Welcome to ConnectSphere.
-        </p>
+      <div className="grid grid-cols-1 gap-6 2xl:grid-cols-[2fr_1fr]">
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h3 className="text-zinc-400">
-              ConnectScore
-            </h3>
+        <DashboardHero />
 
-            <p className="mt-2 text-4xl font-bold text-orange-500">
-              0
-            </p>
-          </div>
+        <MentorRecommendations />
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h3 className="text-zinc-400">
-              Communities
-            </h3>
+        <AIWidget />
 
-            <p className="mt-2 text-4xl font-bold">
-              0
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <h3 className="text-zinc-400">
-              Projects
-            </h3>
-
-            <p className="mt-2 text-4xl font-bold">
-              0
-            </p>
-          </div>
-        </div>
       </div>
-    </div>
+
+      <StatsGrid />
+
+      <OnboardingModal
+        open={showOnboarding}
+        onClose={() =>
+          setShowOnboarding(false)
+        }
+      />
+
+    </AppLayout>
   );
 }

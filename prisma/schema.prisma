@@ -8,32 +8,180 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  fullName  String
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      String   @default("USER")
-  profile   Profile?
+  id                 String                @id @default(cuid())
+  email              String                @unique
+  fullName           String
+  password           String
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  role               String                @default("USER")
+  memberships        CommunityMembership[]
+  profile            Profile?
+  projectsOwned      Project[]
+  projectAnswers     ProjectAnswer[]
+  projectDiscussions ProjectDiscussion[]
+  projectMemberships ProjectMembership[]
+  projectQuestions   ProjectQuestion[]
+  projectMessages    ProjectMessage[]
 }
 
 model Profile {
-  id           String   @id @default(cuid())
-  bio          String?
-  location     String?
-  careerGoal   String?
-  connectScore Int      @default(0)
-  userId       String   @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  user         User     @relation(fields: [userId], references: [id])
+  id                 String   @id @default(cuid())
+  bio                String?
+  location           String?
+  careerGoal         String?
+  connectScore       Int      @default(0)
+  userId             String   @unique
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  faithBased         Boolean  @default(false)
+  interests          String?
+  skills             String?
+  experienceLevel    String?
+  availabilityStatus String?  @default("Open")
+  githubUrl          String?
+  linkedinUrl        String?
+  portfolioUrl       String?
+  bannerImage        String?
+  headline           String?
+  profileImage       String?
+  aiCoachAlerts      Boolean  @default(true)
+  allowMessages      Boolean  @default(true)
+  careerGuidance     Boolean  @default(true)
+  communityUpdates   Boolean  @default(true)
+  dailyMotivation    Boolean  @default(true)
+  learningPaths      Boolean  @default(true)
+  opportunityAlerts  Boolean  @default(true)
+  publicProfile      Boolean  @default(true)
+  showProjects       Boolean  @default(true)
+  theme              String   @default("dark")
+  user               User     @relation(fields: [userId], references: [id])
 }
 
 model Community {
-  id          String   @id @default(cuid())
+  id          String                @id @default(cuid())
   name        String
   description String
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  category    String                @default("Technology")
+  memberships CommunityMembership[]
+}
+
+model CommunityMembership {
+  id          String    @id @default(cuid())
+  userId      String
+  communityId String
+  createdAt   DateTime  @default(now())
+  community   Community @relation(fields: [communityId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, communityId])
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String
+  difficulty  String
+  tech        String
+  status      String   @default("Active")
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  announcements ProjectAnnouncement[]
+  discussions   ProjectDiscussion[]
+  memberships   ProjectMembership[]
+  questions     ProjectQuestion[]
+  resources     ProjectResource[]
+  messages      ProjectMessage[]
+}
+
+model ProjectMembership {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String
+  joinedAt  DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, projectId])
+}
+
+model Mentor {
+  id         String   @id @default(cuid())
+  fullName   String
+  profession String
+  category   String
+  location   String
+  bio        String?
+  image      String?
+  rating     Float    @default(5)
+  createdAt  DateTime @default(now())
+}
+
+model ProjectResource {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  url         String
+  createdAt   DateTime @default(now())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+}
+
+model ProjectDiscussion {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  userId    String
+  projectId String
+  content   String
+  project   Project  @relation(fields: [projectId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model ProjectMessage {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  userId    String
+  projectId String
+
+  user    User    @relation(fields: [userId], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
+}
+
+model ProjectQuestion {
+  id        String          @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime        @default(now())
+  userId    String
+  projectId String
+  answers   ProjectAnswer[]
+  project   Project         @relation(fields: [projectId], references: [id])
+  user      User            @relation(fields: [userId], references: [id])
+}
+
+model ProjectAnswer {
+  id         String          @id @default(cuid())
+  content    String
+  createdAt  DateTime        @default(now())
+  userId     String
+  questionId String
+  question   ProjectQuestion @relation(fields: [questionId], references: [id])
+  user       User            @relation(fields: [userId], references: [id])
+}
+
+model ProjectAnnouncement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
 }

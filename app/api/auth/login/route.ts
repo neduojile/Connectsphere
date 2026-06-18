@@ -19,6 +19,9 @@ export async function POST(req: Request) {
       where: {
         email,
       },
+      include: {
+        profile: true,
+      },
     });
 
     if (!user) {
@@ -40,12 +43,18 @@ export async function POST(req: Request) {
       );
     }
 
+    const needsOnboarding = !user.profile;
+
     return NextResponse.json({
       success: true,
+
+      needsOnboarding,
+
       user: {
         id: user.id,
         email: user.email,
         fullName: user.fullName,
+        profile: user.profile,
       },
     });
   } catch (error) {

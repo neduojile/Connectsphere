@@ -2,27 +2,37 @@
   "name": "connectsphere",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
+  "scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "eslint"
+},
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@prisma/client": "^6.9.0",
     "bcryptjs": "^3.0.3",
     "better-auth": "^1.6.15",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.10.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
+    "groq-sdk": "^1.2.1",
     "lucide-react": "^1.17.0",
+    "motion": "^12.40.0",
     "next": "16.2.7",
+    "next-themes": "^0.4.6",
+    "openai": "^6.42.0",
     "prisma": "^6.9.0",
     "radix-ui": "^1.5.0",
     "react": "19.2.4",
+    "react-countup": "^6.5.3",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.78.0",
+    "react-hot-toast": "^2.6.0",
     "recharts": "^3.8.1",
     "shadcn": "^4.11.0",
     "tailwind-merge": "^3.6.0",
@@ -37,7 +47,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
+    "lightningcss": "^1.32.0",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }
