@@ -97,57 +97,38 @@ export default function StatsGrid() {
         await response.json();
 
       setStats([
-        {
-          title:
-            "ConnectScore",
-          value:
-            data.connectScore ||
-            0,
-          icon: Trophy,
-          color:
-            "text-orange-500",
-          border:
-            "border-orange-500/20",
-        },
-        {
-          title:
-            "Communities",
-          value:
-            data.communities ||
-            0,
-          icon: Users,
-          color:
-            "text-orange-400",
-          border:
-            "border-zinc-700",
-        },
-        {
-          title:
-            "Projects",
-          value:
-            data.projects ||
-            0,
-          icon:
-            FolderKanban,
-          color:
-            "text-orange-400",
-          border:
-            "border-zinc-700",
-        },
-        {
-          title:
-            "Connections",
-          value:
-            data.connections ||
-            0,
-          icon:
-            Network,
-          color:
-            "text-orange-400",
-          border:
-            "border-zinc-700",
-        },
-      ]);
+  {
+    title: "Projects Created",
+    value: data.projectsCreated || 0,
+    icon: FolderKanban,
+    color: "text-orange-500",
+    border: "border-orange-500/20",
+  },
+
+  {
+    title: "Projects Joined",
+    value: data.projectsJoined || 0,
+    icon: Users,
+    color: "text-orange-400",
+    border: "border-zinc-700",
+  },
+
+  {
+    title: "Questions Asked",
+    value: data.questionsAsked || 0,
+    icon: Trophy,
+    color: "text-orange-400",
+    border: "border-zinc-700",
+  },
+
+  {
+    title: "Resources Shared",
+    value: data.resourcesShared || 0,
+    icon: Network,
+    color: "text-orange-400",
+    border: "border-zinc-700",
+  },
+]);
     }
 
     loadStats();

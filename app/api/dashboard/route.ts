@@ -5,6 +5,7 @@ export async function POST(
   req: Request
 ) {
   try {
+
     const { userId } =
       await req.json();
 
@@ -15,36 +16,44 @@ export async function POST(
         },
         include: {
           profile: true,
+
           memberships: true,
+
+
+
+          projectMemberships: true,
         },
       });
 
     if (!user) {
+
       return NextResponse.json(
         {
-          error:
-            "User not found",
+          error: "User not found",
         },
         {
           status: 404,
         }
       );
+
     }
 
     return NextResponse.json({
+
       connectScore:
-        user.profile
-          ?.connectScore || 0,
+        user.profile?.connectScore || 0,
 
       communities:
-        user.memberships
-          .length,
+        user.memberships.length,
 
-      projects: 0,
+    projects:
+  user.projectMemberships.length,
 
       connections: 0,
     });
+
   } catch (error) {
+
     console.error(error);
 
     return NextResponse.json(
@@ -56,5 +65,6 @@ export async function POST(
         status: 500,
       }
     );
+
   }
 }

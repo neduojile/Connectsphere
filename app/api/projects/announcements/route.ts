@@ -25,7 +25,10 @@ export async function GET(req: Request) {
       announcements,
     });
   } catch (error) {
-    console.error(error);
+   console.error(
+  "ANNOUNCEMENT ERROR:",
+  error
+);
 
     return NextResponse.json(
       {

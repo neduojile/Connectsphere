@@ -207,17 +207,31 @@ if (data.success) {
             transition={{
               duration: 0.4,
             }}
-            className="relative z-50 w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-zinc-950 p-8 text-white shadow-2xl"
+            className="relative z-50 w-full max-w-4xl overflow-y-auto max-h-[95vh] rounded-3xl border border-border bg-zinc-950 p-4 md:p-8 text-white shadow-2xl"
           >
             <div className="pointer-events-none absolute -top-20 right-0 h-72 w-72 rounded-full bg-orange-500/20 blur-3xl" />
 
             <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-purple-500/10 blur-3xl" />
 
-            <p className="text-sm uppercase tracking-[0.3em] text-orange-500">
-              ConnectSphere Setup
-            </p>
+            <div className="flex items-center gap-3">
 
-            <h2 className="mt-4 text-4xl font-black">
+  <img
+    src="/images/logo.png"
+    alt="ConnectSphere"
+    className="h-12 w-12 object-contain"
+  />
+
+  <div>
+
+    <p className="text-sm uppercase tracking-[0.3em] text-orange-500">
+      ConnectSphere Setup
+    </p>
+
+  </div>
+
+</div>
+
+           <h2 className="mt-4 text-3xl md:text-4xl font-black">
               Personalize Your Journey
             </h2>
 
@@ -264,7 +278,7 @@ if (data.success) {
                 opacity: 1,
                 x: 0,
               }}
-              className="mt-10 min-h-[320px]"
+              className="mt-6 md:mt-10 min-h-[250px] md:min-h-[320px]"
             >
 
               {step === 1 && (
@@ -284,7 +298,7 @@ if (data.success) {
                               career
                             )
                           }
-                          className={`rounded-2xl border p-5 text-left transition ${
+                         className={`rounded-2xl border p-4 md:p-5 text-left transition ${
                             careerGoal ===
                             career
                               ? "border-orange-500 bg-orange-500/10"
@@ -313,7 +327,7 @@ if (data.success) {
                     </span>
                   </div>
 
-                  <div className="grid gap-3 md:grid-cols-2">
+                  <div className="grid gap-3 grid-cols-1 md:grid-cols-2">
                     {interestOptions.map(
                       (interest) => (
                         <button
@@ -324,7 +338,7 @@ if (data.success) {
                               interest
                             )
                           }
-                          className={`rounded-xl border p-4 text-left transition ${
+                         className={`rounded-xl border p-3 md:p-4 text-left transition ${
                             interests.includes(
                               interest
                             )
@@ -366,7 +380,7 @@ if (data.success) {
                     </span>
                   </div>
 
-                  <div className="grid gap-3 md:grid-cols-3">
+                  <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
                     {skillOptions.map(
                       (skill) => (
                         <button
@@ -377,7 +391,7 @@ if (data.success) {
                               skill
                             )
                           }
-                          className={`rounded-xl border p-4 transition ${
+                         className={`rounded-xl border p-3 md:p-4 transition ${
                             skills.includes(
                               skill
                             )
@@ -393,9 +407,9 @@ if (data.success) {
                             {skills.includes(
                               skill
                             ) && (
-                              <span>
-                                ✓
-                              </span>
+                             <span className="font-bold text-orange-500">
+  ✓
+</span>
                             )}
                           </div>
                         </button>
@@ -426,7 +440,7 @@ if (data.success) {
                             level
                           )
                         }
-                        className={`rounded-xl border p-4 text-left transition ${
+                       className={`rounded-xl border p-3 md:p-4 text-left transition ${
                           experienceLevel ===
                           level
                             ? "border-orange-500 bg-orange-500/10"
@@ -544,7 +558,7 @@ if (data.success) {
                   )
                 }
                 disabled={step === 1}
-                className="rounded-xl border border-zinc-700 px-6 py-3 disabled:opacity-40"
+               className="rounded-xl border border-zinc-700 px-4 md:px-6 py-3 disabled:opacity-40"
               >
                 Back
               </button>
@@ -569,7 +583,7 @@ if (data.success) {
                     (step === 4 &&
                       !experienceLevel)
                   }
-                  className="rounded-xl bg-orange-500 px-6 py-3 font-semibold text-black disabled:opacity-40"
+                  className="rounded-xl bg-orange-500 px-4 md:px-6 py-3 font-semibold text-black disabled:opacity-40"
                 >
                   Next
                 </button>

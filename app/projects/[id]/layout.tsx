@@ -24,32 +24,33 @@ export default function ProjectLayout({
     setMenuOpen] =
     useState(false);
 
-  const links = [
-    {
-      name: "Overview",
-      href: `/projects/${params.id}/overview`,
-    },
-   {
-  name: "Chat",
-  href: `/projects/${params.id}/chat`,
-},
-    {
-      name: "Resources",
-      href: `/projects/${params.id}/resources`,
-    },
-    {
-      name: "Q&A",
-      href: `/projects/${params.id}/questions`,
-    },
-    {
-      name: "Announcements",
-      href: `/projects/${params.id}/announcements`,
-    },
-    {
-      name: "Members",
-      href: `/projects/${params.id}/members`,
-    },
-  ];
+const links = [
+  {
+    name: "Overview",
+    href: `/projects/${params.id}/overview`,
+  },
+  {
+    name: "Chat",
+    href: `/projects/${params.id}/chat`,
+  },
+  {
+    name: "Resources",
+    href: `/projects/${params.id}/resources`,
+  },
+  
+  {
+    name: "Q&A",
+    href: `/projects/${params.id}/questions`,
+  },
+  {
+    name: "Announcements",
+    href: `/projects/${params.id}/announcements`,
+  },
+  {
+    name: "Members",
+    href: `/projects/${params.id}/members`,
+  },
+];
 
   return (
     <div className="min-h-screen bg-black text-white">

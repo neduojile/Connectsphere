@@ -1,501 +1,701 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const careerOptions = [
-  "Cybersecurity Engineer",
-  "Blockchain Developer",
-  "AI Engineer",
-  "Software Engineer",
-  "Mobile Developer",
-  "UI/UX Designer",
-  "Data Analyst",
-  "Product Manager",
-  "Entrepreneur",
-  "Researcher",
-];
+import {
+  Briefcase,
+  Search,
+  MapPin,
+  Bookmark,
+  ExternalLink,
+  Building2,
+  Calendar,
+  Plus,
+} from "lucide-react";
 
-const interestOptions = [
-  "Blockchain",
-  "Artificial Intelligence",
-  "Cybersecurity",
-  "Leadership",
-  "Research",
-  "Startups",
-  "Open Source",
-  "Web Development",
-  "Mobile Development",
-  "Community Building",
-  "Cloud Computing",
-  "DevOps",
-];
+export default function OpportunitiesPage() {
 
-const skillOptions = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "JavaScript",
-  "Node.js",
-  "Python",
-  "Java",
-  "Rust",
-  "Solidity",
-  "Linux",
-  "Docker",
-  "Git",
-  "AWS",
-  "Figma",
-];
+  const [opportunities,
+    setOpportunities] =
+    useState<any[]>([]);
 
-export default function OnboardingPage() {
-  const [step, setStep] = useState(1);
+  const [saved,
+    setSaved] =
+    useState<any[]>([]);
 
-  const [careerGoal, setCareerGoal] =
+    const [applications,
+  setApplications] =
+  useState<any[]>([]);
+
+  const [search,
+    setSearch] =
     useState("");
 
-  const [interests, setInterests] =
-    useState<string[]>([]);
+  const [category,
+    setCategory] =
+    useState("All");
 
-  const [skills, setSkills] =
-    useState<string[]>([]);
+  const [user,
+    setUser] =
+    useState<any>(null);
 
-  const [
-    experienceLevel,
-    setExperienceLevel,
-  ] = useState("");
+  const [title,
+    setTitle] =
+    useState("");
 
-  const [faithBased, setFaithBased] =
-    useState(false);
+  const [organization,
+    setOrganization] =
+    useState("");
 
-  const [loading, setLoading] =
-    useState(false);
+  const [location,
+    setLocation] =
+    useState("");
 
-  function toggleInterest(
-    interest: string
-  ) {
-    setInterests((prev) =>
-      prev.includes(interest)
-        ? prev.filter(
-            (item) => item !== interest
-          )
-        : [...prev, interest]
-    );
-  }
+  const [workMode,
+    setWorkMode] =
+    useState("Remote");
 
-  function toggleSkill(skill: string) {
-    setSkills((prev) =>
-      prev.includes(skill)
-        ? prev.filter(
-            (item) => item !== skill
-          )
-        : [...prev, skill]
-    );
-  }
+  const [skills,
+    setSkills] =
+    useState("");
 
-  async function handleSubmit() {
+  const [description,
+    setDescription] =
+    useState("");
+
+  const [applyLink,
+    setApplyLink] =
+    useState("");
+
+  const [deadline,
+    setDeadline] =
+    useState("");
+
+  const [opportunityCategory,
+    setOpportunityCategory] =
+    useState("Internship");
+      useEffect(() => {
+
     const storedUser =
       localStorage.getItem(
         "connectsphere_user"
       );
 
-    if (!storedUser) {
-      alert("Please login first");
-      return;
+    if (storedUser) {
+
+      const parsed =
+        JSON.parse(
+          storedUser
+        );
+
+      setUser(parsed);
+
+      loadSaved(
+        parsed.id
+      );
+      
+      loadApplications(
+  parsed.id
+);
+
     }
 
-    const user =
-      JSON.parse(storedUser);
+    loadOpportunities();
 
-    try {
-      setLoading(true);
+  }, []);
 
-      const response = await fetch(
-        "/api/onboarding",
+  async function loadOpportunities() {
+
+    const response =
+      await fetch(
+        "/api/opportunities/list"
+      );
+
+    const data =
+      await response.json();
+
+    setOpportunities(
+      data.opportunities || []
+    );
+
+  }
+
+  async function loadSaved(
+    userId: string
+  ) {
+
+    const response =
+      await fetch(
+        "/api/opportunities/saved",
         {
           method: "POST",
+
           headers: {
             "Content-Type":
               "application/json",
           },
+
           body: JSON.stringify({
-            userId: user.id,
-            careerGoal,
-            interests:
-              interests.join(", "),
-            skills:
-              skills.join(", "),
-            experienceLevel,
-            faithBased,
+            userId,
           }),
         }
       );
 
-      const data =
-        await response.json();
+    const data =
+      await response.json();
 
-      if (data.success) {
-        window.location.href =
-          "/dashboard";
-      }
-    } catch (error) {
-      console.error(error);
+    setSaved(
+      data.opportunities || []
+    );
 
-      alert(
-        "Failed to save onboarding"
-      );
-    } finally {
-      setLoading(false);
-    }
   }
 
-  const progress =
-    (step / 6) * 100;
 
-  return (
-    <div className="min-h-screen bg-card px-4 py-10 text-white">
+  async function loadApplications(
+  userId: string
+) {
 
-      <div className="mx-auto max-w-5xl">
+  const response =
+    await fetch(
+      "/api/opportunities/my-applications",
+      {
+        method: "POST",
 
-        <div className="mb-8">
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
 
-          <div className="mb-3 flex justify-between">
+        body: JSON.stringify({
+          userId,
+        }),
+      }
+    );
 
-            <span className="text-muted-foreground">
-              Step {step} of 6
-            </span>
+  const data =
+    await response.json();
 
-            <span className="text-orange-500">
-              {Math.round(progress)}%
-            </span>
+  setApplications(
+    data.applications || []
+  );
+
+}
+    async function saveOpportunity(
+    opportunityId: string
+  ) {
+
+    if (!user) return;
+
+    await fetch(
+      "/api/opportunities/save",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          userId: user.id,
+          opportunityId,
+        }),
+      }
+    );
+
+    loadSaved(
+      user.id
+    );
+
+  }
+
+
+  async function applyToOpportunity(
+  opportunityId: string
+) {
+
+  if (!user)
+    return;
+
+  const response =
+    await fetch(
+      "/api/opportunities/apply",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          userId:
+            user.id,
+          opportunityId,
+        }),
+      }
+    );
+
+  const data =
+    await response.json();
+
+  if (data.success) {
+
+    alert(
+      "Application submitted"
+    );
+
+    loadApplications(
+      user.id
+    );
+
+  } else {
+
+    alert(
+      data.error
+    );
+
+  }
+}
+
+
+  async function createOpportunity() {
+
+    if (!user)
+      return;
+
+    const response =
+      await fetch(
+        "/api/opportunities/create",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body: JSON.stringify({
+            title,
+            organization,
+            category:
+              opportunityCategory,
+            location,
+            workMode,
+            skills,
+            description,
+            applyLink,
+            deadline,
+            postedById:
+              user.id,
+          }),
+        }
+      );
+
+    if (response.ok) {
+
+      alert(
+        "Opportunity posted"
+      );
+
+      loadOpportunities();
+
+    }
+
+  }
+const filtered =
+  opportunities.filter(
+    (opportunity) => {
+
+      const matchesSearch =
+        opportunity.title
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
+
+      const matchesCategory =
+        category === "All" ||
+        opportunity.category ===
+          category;
+
+      return (
+        matchesSearch &&
+        matchesCategory
+      );
+
+    }
+  );
+
+return (
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="grid gap-4 md:grid-cols-4">
+
+
+
+</div>
+
+    <div>
+
+      <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
+
+  <div className="flex items-center gap-3">
+
+    <Briefcase
+      size={36}
+      className="text-orange-500"
+    />
+
+    <h1 className="text-3xl md:text-5xl font-black">
+      Opportunities
+    </h1>
+
+  </div>
+
+      </div>
+
+      <p className="mt-3 text-zinc-500">
+
+        Jobs, internships,
+        scholarships, grants,
+        fellowships and hackathons.
+
+      </p>
+
+      <div className="mt-6">
+
+<div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
+
+  <input
+    type="text"
+    placeholder="Search opportunities..."
+    value={search}
+    onChange={(e) =>
+      setSearch(e.target.value)
+    }
+    className="w-full rounded-2xl border border-zinc-800 bg-black px-4 py-3"
+  />
+
+  <div className="mt-5 flex flex-wrap gap-3">
+
+    {[
+      "All",
+      "Internship",
+      "Job",
+      "Scholarship",
+      "Grant",
+      "Hackathon",
+      "Fellowship",
+    ].map((item) => (
+
+      <button
+        key={item}
+        onClick={() =>
+          setCategory(item)
+        }
+        className={`rounded-xl px-4 py-2 text-sm transition ${
+          category === item
+            ? "bg-orange-500 text-black"
+            : "bg-zinc-900 text-white"
+        }`}
+      >
+        {item}
+      </button>
+
+    ))}
+
+  </div>
+
+</div>
+
+</div>
+
+{saved.length > 0 && (
+
+  <div>
+
+    <h2 className="text-2xl font-bold">
+      Saved Opportunities
+    </h2>
+
+    <div className="mt-4 grid gap-4">
+
+      {saved.map((item) => (
+
+        <div
+          key={item.id}
+          className="rounded-2xl border border-orange-500/20 bg-orange-500/5 p-4"
+        >
+          {item.opportunity?.title}
+        </div>
+
+      ))}
+
+    </div>
+
+  </div>
+
+)}
+
+{applications.length > 0 && (
+
+  <div>
+
+    <h2 className="text-2xl font-bold">
+      My Applications
+    </h2>
+
+    <div className="mt-4 grid gap-4">
+
+      {applications.map(
+        (application) => (
+
+          <div
+            key={application.id}
+            className="rounded-2xl border border-green-500/20 bg-green-500/5 p-4"
+          >
+
+            <h3 className="font-bold">
+              {
+                application
+                  .opportunity
+                  .title
+              }
+            </h3>
+
+            <p className="text-sm text-zinc-500">
+              Applied Successfully
+            </p>
 
           </div>
 
-          <div className="h-3 rounded-full bg-zinc-800">
+        )
+      )}
 
-            <div
-              className="h-full rounded-full bg-orange-500 transition-all duration-500"
-              style={{
-                width: `${progress}%`,
-              }}
+    </div>
+
+  </div>
+
+)}
+
+<div className="grid gap-6 lg:grid-cols-2">
+
+  {filtered.map(
+    (opportunity) => (
+
+      <div
+        key={opportunity.id}
+        className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 transition hover:border-orange-500"
+      >
+
+        <div className="flex items-start justify-between">
+
+          <div>
+
+            <h2 className="text-2xl font-bold">
+              {opportunity.title}
+            </h2>
+
+            <div className="mt-2 flex items-center gap-2 text-zinc-400">
+
+              <Building2
+                size={16}
+              />
+
+              {opportunity.organization}
+
+            </div>
+
+          </div>
+
+          <button
+            onClick={() =>
+              saveOpportunity(
+                opportunity.id
+              )
+            }
+            className="rounded-xl bg-zinc-900 p-3"
+          >
+
+            <Bookmark
+              size={18}
             />
 
+          </button>
+
+        </div>
+
+        <p className="mt-4 text-zinc-400">
+          {opportunity.description}
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-3">
+
+          <span className="rounded-full bg-orange-500/10 px-4 py-2 text-orange-500">
+            {opportunity.category}
+          </span>
+
+          <span className="rounded-full bg-zinc-900 px-4 py-2">
+            {opportunity.workMode}
+          </span>
+
+        </div>
+
+        <div className="mt-5 flex flex-wrap gap-5 text-sm text-zinc-400">
+
+          <div className="flex items-center gap-2">
+
+            <MapPin
+              size={16}
+            />
+
+            {opportunity.location}
+
+          </div>
+
+          <div className="flex items-center gap-2">
+
+            <Calendar
+              size={16}
+            />
+
+            {new Date(
+              opportunity.deadline
+            ).toLocaleDateString()}
+
           </div>
 
         </div>
 
-        <div className="rounded-3xl border border-border bg-zinc-950 p-8">
+        <div className="mt-5 rounded-2xl bg-zinc-900 p-4">
 
-          {step === 1 && (
-            <>
-              <h1 className="text-4xl font-black">
-                What do you want to become?
-              </h1>
+          <p className="mb-2 text-xs uppercase text-zinc-500">
+            Skills Required
+          </p>
 
-              <p className="mt-3 text-muted-foreground">
-                Choose your primary career path.
-              </p>
-
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-
-                {careerOptions.map(
-                  (career) => (
-                    <button
-                      key={career}
-                      onClick={() =>
-                        setCareerGoal(
-                          career
-                        )
-                      }
-                      className={`rounded-2xl border p-5 text-left transition ${
-                        careerGoal === career
-                          ? "border-orange-500 bg-orange-500/10"
-                          : "border-border"
-                      }`}
-                    >
-                      {career}
-                    </button>
-                  )
-                )}
-
-              </div>
-            </>
-          )}
-
-          {step === 2 && (
-            <>
-              <h1 className="text-4xl font-black">
-                Select Your Interests
-              </h1>
-
-              <p className="mt-3 text-muted-foreground">
-                Choose all that apply.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-
-                {interestOptions.map(
-                  (interest) => (
-                    <button
-                      key={interest}
-                      onClick={() =>
-                        toggleInterest(
-                          interest
-                        )
-                      }
-                      className={`rounded-full px-4 py-2 transition ${
-                        interests.includes(
-                          interest
-                        )
-                          ? "bg-orange-500 text-black"
-                          : "bg-zinc-900"
-                      }`}
-                    >
-                      {interest}
-                    </button>
-                  )
-                )}
-
-              </div>
-            </>
-          )}
-
-          {step === 3 && (
-            <>
-              <h1 className="text-4xl font-black">
-                Select Your Skills
-              </h1>
-
-              <p className="mt-3 text-muted-foreground">
-                Choose your current skills.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-
-                {skillOptions.map(
-                  (skill) => (
-                    <button
-                      key={skill}
-                      onClick={() =>
-                        toggleSkill(skill)
-                      }
-                      className={`rounded-full px-4 py-2 transition ${
-                        skills.includes(
-                          skill
-                        )
-                          ? "bg-orange-500 text-black"
-                          : "bg-zinc-900"
-                      }`}
-                    >
-                      {skill}
-                    </button>
-                  )
-                )}
-
-              </div>
-            </>
-          )}
-
-                    {step === 4 && (
-            <>
-              <h1 className="text-4xl font-black">
-                Experience Level
-              </h1>
-
-              <p className="mt-3 text-muted-foreground">
-                Tell us where you currently are.
-              </p>
-
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-
-                {[
-                  "Beginner",
-                  "Intermediate",
-                  "Advanced",
-                  "Professional",
-                ].map((level) => (
-                  <button
-                    key={level}
-                    onClick={() =>
-                      setExperienceLevel(
-                        level
-                      )
-                    }
-                    className={`rounded-2xl border p-5 text-left transition ${
-                      experienceLevel ===
-                      level
-                        ? "border-orange-500 bg-orange-500/10"
-                        : "border-border"
-                    }`}
-                  >
-                    {level}
-                  </button>
-                ))}
-
-              </div>
-            </>
-          )}
-
-          {step === 5 && (
-            <>
-              <h1 className="text-4xl font-black">
-                Growth Preference
-              </h1>
-
-              <p className="mt-3 text-muted-foreground">
-                Personalize your journey.
-              </p>
-
-              <div className="mt-8 space-y-4">
-
-                <button
-                  onClick={() =>
-                    setFaithBased(true)
-                  }
-                  className={`w-full rounded-2xl border p-5 text-left transition ${
-                    faithBased
-                      ? "border-orange-500 bg-orange-500/10"
-                      : "border-border"
-                  }`}
-                >
-                  ✨ Include faith-based
-                  mentorship, growth content,
-                  scripture insights and
-                  spiritual encouragement.
-                </button>
-
-                <button
-                  onClick={() =>
-                    setFaithBased(false)
-                  }
-                  className={`w-full rounded-2xl border p-5 text-left transition ${
-                    !faithBased
-                      ? "border-orange-500 bg-orange-500/10"
-                      : "border-border"
-                  }`}
-                >
-                  🚀 Professional growth
-                  only.
-                </button>
-
-              </div>
-            </>
-          )}
-
-          {step === 6 && (
-            <>
-              <h1 className="text-4xl font-black">
-                AI Profile Summary
-              </h1>
-
-              <p className="mt-3 text-muted-foreground">
-                Review your personalized
-                profile.
-              </p>
-
-              <div className="mt-8 space-y-4">
-
-                <div className="rounded-2xl border border-border bg-card p-5">
-                  <p className="text-sm text-zinc-500">
-                    Career Goal
-                  </p>
-
-                  <h3 className="mt-2 text-xl font-bold">
-                    {careerGoal}
-                  </h3>
-                </div>
-
-                <div className="rounded-2xl border border-border bg-card p-5">
-                  <p className="text-sm text-zinc-500">
-                    Interests
-                  </p>
-
-                  <h3 className="mt-2">
-                    {interests.join(", ")}
-                  </h3>
-                </div>
-
-                <div className="rounded-2xl border border-border bg-card p-5">
-                  <p className="text-sm text-zinc-500">
-                    Skills
-                  </p>
-
-                  <h3 className="mt-2">
-                    {skills.join(", ")}
-                  </h3>
-                </div>
-
-                <div className="rounded-2xl border border-border bg-card p-5">
-                  <p className="text-sm text-zinc-500">
-                    Experience Level
-                  </p>
-
-                  <h3 className="mt-2">
-                    {experienceLevel}
-                  </h3>
-                </div>
-
-                <div className="rounded-2xl border border-orange-500/30 bg-orange-500/5 p-5">
-                  <h3 className="font-bold text-orange-500">
-                    AI Recommendation
-                  </h3>
-
-                  <p className="mt-2 text-zinc-300">
-                    Based on your profile,
-                    ConnectSphere will recommend
-                    relevant communities,
-                    mentors, projects and
-                    opportunities that align
-                    with your goals.
-                  </p>
-                </div>
-
-              </div>
-            </>
-          )}
-
-          <div className="mt-10 flex justify-between">
-
-            <button
-              onClick={() =>
-                setStep((prev) =>
-                  Math.max(prev - 1, 1)
-                )
-              }
-              disabled={step === 1}
-              className="rounded-xl border border-zinc-700 px-6 py-3 transition disabled:opacity-40"
-            >
-              Back
-            </button>
-
-            {step < 6 ? (
-              <button
-                onClick={() =>
-                  setStep((prev) =>
-                    prev + 1
-                  )
-                }
-                className="rounded-xl bg-orange-500 px-6 py-3 font-semibold text-black transition hover:bg-orange-400"
-              >
-                Next
-              </button>
-            ) : (
-              <button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="rounded-xl bg-orange-500 px-8 py-3 font-semibold text-black transition hover:bg-orange-400"
-              >
-                {loading
-                  ? "Saving..."
-                  : "Finish Setup"}
-              </button>
-            )}
-
-          </div>
+          <p>
+            {opportunity.skills}
+          </p>
 
         </div>
+<div className="mt-6 flex gap-3">
+
+  <button
+    onClick={() =>
+      applyToOpportunity(
+        opportunity.id
+      )
+    }
+    className="flex-1 rounded-xl bg-orange-500 py-3 font-semibold text-black"
+  >
+    Apply
+  </button>
+
+  <a
+    href={
+      opportunity.applyLink
+    }
+    target="_blank"
+    className="rounded-xl border border-orange-500 px-5 py-3 text-orange-500"
+  >
+    View
+  </a>
+
+</div>
+
+      </div>
+
+    )
+  )}
+
+</div>
+
+{filtered.length === 0 && (
+<div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-10 text-center">
+
+  <Briefcase
+    size={60}
+    className="mx-auto text-orange-500"
+  />
+
+  <h2 className="mt-5 text-3xl font-bold">
+    No Opportunities Yet
+  </h2>
+
+  <p className="mt-3 text-zinc-500">
+    Be the first person to post an
+    internship, job, scholarship,
+    fellowship or grant.
+  </p>
+
+</div>
+)}
+
+    </div>
+
+   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
+
+        <h2 className="text-3xl font-black text-orange-500">
+          {opportunities.length}
+        </h2>
+
+        <p>Total Opportunities</p>
+
+      </div>
+
+      <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
+
+        <h2 className="text-3xl font-black text-orange-500">
+          {
+            opportunities.filter(
+              (o) =>
+                o.category ===
+                "Internship"
+            ).length
+          }
+        </h2>
+
+        <p>Internships</p>
+
+      </div>
+
+      <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
+
+        <h2 className="text-3xl font-black text-orange-500">
+          {
+            opportunities.filter(
+              (o) =>
+                o.category ===
+                "Scholarship"
+            ).length
+          }
+        </h2>
+
+        <p>Scholarships</p>
+
+      </div>
+
+      <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
+
+        <h2 className="text-3xl font-black text-orange-500">
+          {
+            opportunities.filter(
+              (o) =>
+                o.workMode ===
+                "Remote"
+            ).length
+          }
+        </h2>
+
+        <p>Remote</p>
 
       </div>
 
     </div>
-  );
+
+      </div>
+
+);
 }

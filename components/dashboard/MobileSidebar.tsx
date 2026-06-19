@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
 import {
   LayoutDashboard,
   Users,
@@ -9,7 +11,7 @@ import {
   User,
   Settings,
   Menu,
-  Bot,
+  LogOut,
 } from "lucide-react";
 
 import {
@@ -20,69 +22,134 @@ import {
 } from "@/components/ui/sheet";
 
 export default function MobileSidebar() {
+  const [user, setUser] =
+    useState<any>(null);
+
+  useEffect(() => {
+    const storedUser =
+      localStorage.getItem(
+        "connectsphere_user"
+      );
+
+    if (storedUser) {
+      setUser(
+        JSON.parse(storedUser)
+      );
+    }
+  }, []);
+
+  const menuItems = [
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      name: "Communities",
+      href: "/communities",
+      icon: Users,
+    },
+    {
+      name: "Opportunities",
+      href: "/opportunities",
+      icon: Briefcase,
+    },
+    {
+      name: "Projects",
+      href: "/projects",
+      icon: FolderKanban,
+    },
+    {
+      name: "Profile",
+      href: "/profile",
+      icon: User,
+    },
+    {
+      name: "Settings",
+      href: "/settings",
+      icon: Settings,
+    },
+  ];
+
   return (
     <Sheet>
       <SheetTrigger asChild>
-       <button
-  className="
-    rounded-xl
-    border
-    border-orange-500/30
-    bg-orange-500/10
-    px-4
-    py-2
-    text-orange-500
-    shadow-[0_0_20px_rgba(249,115,22,0.15)]
-    transition-all
-    duration-300
-    hover:scale-105
-  "
->
+
+        <button
+          className="
+            rounded-xl
+            border
+            border-orange-500/30
+            bg-orange-500/10
+            px-4
+            py-2
+            text-orange-500
+            transition-all
+            duration-300
+            hover:scale-105
+          "
+        >
           <Menu size={18} />
         </button>
+
       </SheetTrigger>
-      
-<SheetContent
-  side="left"
-  className="overflow-y-auto border-border bg-card text-white"
->
+
+      <SheetContent
+        side="left"
+        className="
+          w-[85%]
+          max-w-[320px]
+          border-r
+          border-orange-500/10
+          bg-[#080808]
+          text-white
+          p-0
+          overflow-y-auto
+        "
+      >
         <SheetTitle className="sr-only">
           ConnectSphere Navigation
         </SheetTitle>
 
-      <div
-  className="
-    rounded-2xl
-    border
-    border-orange-500/20
-    bg-orange-500/5
-    p-4
-    backdrop-blur
-  "
->
+        <div className="flex min-h-screen flex-col">
 
-  <div className="flex items-center gap-3">
+          {/* HEADER */}
 
-    <img
-      src="/images/logo.png"
-      alt="ConnectSphere"
-      className="
-        h-12
-        w-12
-        object-contain
-        drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]
-      "
-    />
+{/* HEADER */}
 
-    <div>
+<div className="border-b border-zinc-800 p-5">
 
-      <h1 className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-black text-transparent">
-        ConnectSphere
-      </h1>
+  <div
+    className="
+      rounded-2xl
+      border
+      border-orange-500/20
+      bg-gradient-to-br
+      from-orange-500/10
+      to-transparent
+      p-4
+    "
+  >
 
-      <p className="text-xs text-zinc-400">
-        Growth Command Center
-      </p>
+    <div className="flex items-center gap-3">
+
+      <img
+        src="/images/logo.png"
+        alt="ConnectSphere"
+        className="h-10 w-10 object-contain"
+      />
+
+      <div>
+
+        <h1 className="text-xl font-black text-orange-500">
+          ConnectSphere
+        </h1>
+
+        <p className="text-xs text-zinc-400">
+          Growth Command Center
+        </p>
+
+      </div>
 
     </div>
 
@@ -90,96 +157,122 @@ export default function MobileSidebar() {
 
 </div>
 
-        <nav className="mt-10 space-y-3">
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-orange-500/10 hover:text-orange-500 transition-all duration-300"
-          >
-            <LayoutDashboard size={20} />
-            Dashboard
-          </Link>
+{/* USER */}
+          {/* USER */}
 
-          <Link
-            href="/communities"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-orange-500/10 hover:text-orange-500 transition-all duration-300"
-          >
-            <Users size={20} />
-            Communities
-          </Link>
+          <div className="px-5 pt-5">
 
-          <Link
-            href="/opportunities"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-orange-500/10 hover:text-orange-500 transition-all duration-300"
-          >
-            <Briefcase size={20} />
-            Opportunities
-          </Link>
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4">
 
-          <Link
-            href="/projects"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-orange-500/10 hover:text-orange-500 transition-all duration-300"
-          >
-            <FolderKanban size={20} />
-            Projects
-          </Link>
+              <p className="text-xs text-zinc-500">
+                Signed In As
+              </p>
 
-          <Link
-  href="/ai-coach"
-  className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-orange-500/10 hover:text-orange-500 transition-all duration-300"
->
-  <Bot size={20} />
-  AI Coach
-</Link>
+              <h3 className="mt-1 font-bold">
+                {user?.fullName ||
+                  "ConnectSphere User"}
+              </h3>
 
-          <Link
-            href="/profile"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-orange-500/10 hover:text-orange-500 transition-all duration-300"
-          >
+              <p className="mt-1 text-sm text-orange-500">
+                {user?.profile
+                  ?.careerGoal ||
+                  "Explorer"}
+              </p>
 
+            </div>
 
-            <User size={20} />
-            Profile
-          </Link>
+          </div>
 
-          <Link
-            href="/settings"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-orange-500/10 hover:text-orange-500 transition-all duration-300"
-          >
-            <Settings size={20} />
-            Settings
-          </Link>
-        </nav>
+          {/* NAVIGATION */}
 
-        <div className="mt-8">
-  <button
-    onClick={() => {
-      localStorage.removeItem(
-        "connectsphere_user"
-      );
+          <nav className="flex-1 px-4 py-6">
 
-      window.location.href =
-        "/login";
-    }}
-    className="
-  w-full
-  rounded-xl
-  border
-  border-orange-500/30
-  bg-orange-500/5
-  py-3
-  font-medium
-  text-orange-500
-  transition-all
-  duration-300
-  hover:bg-orange-500
-  hover:text-black
-  hover:shadow-[0_0_25px_rgba(249,115,22,0.4)]
-"
-  >
-    Logout
-  </button>
-</div>
+            <div className="space-y-2">
+
+              {menuItems.map(
+                (item) => {
+                  const Icon =
+                    item.icon;
+
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="
+                        flex
+                        items-center
+                        gap-4
+                        rounded-2xl
+                        px-4
+                        py-3
+                        text-zinc-300
+                        transition-all
+                        duration-300
+                        hover:bg-orange-500/10
+                        hover:text-orange-500
+                      "
+                    >
+                      <Icon
+                        size={20}
+                      />
+
+                      <span className="font-medium">
+                        {item.name}
+                      </span>
+                    </Link>
+                  );
+                }
+              )}
+
+            </div>
+
+          </nav>
+
+          {/* FOOTER */}
+
+          <div className="border-t border-zinc-800 p-5">
+
+            <button
+              onClick={() => {
+                localStorage.removeItem(
+                  "connectsphere_user"
+                );
+
+                window.location.href =
+                  "/login";
+              }}
+              className="
+                flex
+                w-full
+                items-center
+                justify-center
+                gap-2
+                rounded-2xl
+                border
+                border-orange-500/20
+                bg-orange-500/10
+                py-3
+                font-semibold
+                text-orange-500
+                transition-all
+                duration-300
+                hover:bg-orange-500
+                hover:text-black
+              "
+            >
+              <LogOut
+                size={18}
+              />
+
+              Logout
+            </button>
+
+          </div>
+
+        </div>
+
       </SheetContent>
+
     </Sheet>
   );
 }

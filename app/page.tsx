@@ -24,6 +24,8 @@ export default function Home() {
     <main className="min-h-screen bg-card text-white">
       <Navbar/>
 
+      
+
   <section className="relative mx-auto max-w-7xl px-6 py-16">
 
   <div className="absolute left-1/2 top-40 -z-10 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-orange-500/10 blur-3xl" />

@@ -81,3 +81,40 @@ export async function POST(
     );
   }
 }
+
+export async function DELETE(
+  req: Request
+) {
+
+  try {
+
+    const {
+      answerId,
+    } = await req.json();
+
+    await prisma.projectAnswer.delete({
+      where: {
+        id: answerId,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        success: false,
+      },
+      {
+        status: 500,
+      }
+    );
+
+  }
+
+}

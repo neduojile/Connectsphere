@@ -259,6 +259,87 @@ async function joinProject(
     );
   }
 }
+
+async function deleteProject(
+  projectId: string
+) {
+
+  const confirmed =
+    confirm(
+      "Delete this project?"
+    );
+
+  if (!confirmed)
+    return;
+
+  const storedUser =
+    localStorage.getItem(
+      "connectsphere_user"
+    );
+
+  if (!storedUser)
+    return;
+
+  const user =
+    JSON.parse(
+      storedUser
+    );
+
+  const response =
+    await fetch(
+      "/api/projects/delete",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          projectId,
+          userId:
+            user.id,
+        }),
+      }
+    );
+
+  const data =
+    await response.json();
+
+  if (data.success) {
+
+    setProjects(
+      projects.filter(
+        (p) =>
+          p.id !==
+          projectId
+      )
+    );
+
+    setOwnedProjects(
+      ownedProjects.filter(
+        (p) =>
+          p.id !==
+          projectId
+      )
+    );
+
+    alert(
+      "Project deleted"
+    );
+
+  } else {
+
+    alert(
+      data.error ||
+      "Failed to delete project"
+    );
+
+  }
+
+}
+
   return (
     <AppLayout>
       <div className="mx-auto max-w-7xl">
@@ -610,9 +691,25 @@ async function joinProject(
 
               </div>
 
-              <h2 className="mt-5 text-2xl font-bold">
-                {project.title}
-              </h2>
+             <div className="mt-5 flex items-center gap-3">
+
+  <h2 className="text-2xl font-bold">
+    {project.title}
+  </h2>
+
+  {ownedProjects.some(
+    (p) => p.id === project.id
+  ) && (
+
+    <span className="rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-black">
+
+      OWNER
+
+    </span>
+
+  )}
+
+</div>
 
               <p className="mt-2 text-orange-500">
                 {project.category}
@@ -672,6 +769,25 @@ async function joinProject(
                   View Project
                   <ArrowRight size={18} />
                 </button>
+
+{ownedProjects.some(
+  (p) => p.id === project.id
+) && (
+
+  <button
+    onClick={() =>
+      deleteProject(
+        project.id
+      )
+    }
+    className="rounded-xl bg-red-600 px-5 py-3 font-semibold text-white"
+  >
+
+    Delete
+
+  </button>
+
+)}
 
               </div>
 

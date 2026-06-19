@@ -2,11 +2,23 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(req: Request) {
+
   const { searchParams } =
     new URL(req.url);
 
   const projectId =
     searchParams.get("projectId");
+
+  const project =
+    await prisma.project.findUnique({
+      where: {
+        id: projectId || "",
+      },
+
+      include: {
+        memberships: true,
+      },
+    });
 
   const messages =
     await prisma.projectMessage.findMany({
@@ -24,9 +36,30 @@ export async function GET(req: Request) {
       },
     });
 
+  const formatted =
+    messages.map(
+      (message: any) => ({
+        ...message,
+
+        isOwner:
+          message.userId ===
+          project?.ownerId,
+      })
+    );
+
   return NextResponse.json({
     success: true,
-    messages,
+
+    messages: formatted,
+
+    project,
+
+    memberCount:
+      (project?.memberships
+        ?.length || 0) + 1,
+
+    messageCount:
+      messages.length,
   });
 }
 

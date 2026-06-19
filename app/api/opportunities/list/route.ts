@@ -1,23 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(req: Request) {
+export async function GET() {
 
   try {
 
-    const { searchParams } =
-      new URL(req.url);
-
-    const projectId =
-      searchParams.get("projectId");
-
-    const resources =
-      await prisma.projectResource.findMany({
-        where: {
-          projectId:
-            projectId || "",
+    const opportunities =
+      await prisma.opportunity.findMany({
+        include: {
+          postedBy: true,
         },
-
         orderBy: {
           createdAt: "desc",
         },
@@ -25,7 +17,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json({
       success: true,
-      resources,
+      opportunities,
     });
 
   } catch (error) {
@@ -35,8 +27,6 @@ export async function GET(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        error:
-          "Failed to load resources",
       },
       {
         status: 500,
@@ -44,5 +34,4 @@ export async function GET(req: Request) {
     );
 
   }
-
 }

@@ -15,10 +15,20 @@ export async function GET(req: Request) {
           projectId:
             projectId || "",
         },
-        include: {
-          user: true,
-          answers: true,
-        },
+
+
+include: {
+  user: true,
+
+  project: true,
+
+  answers: {
+    include: {
+      user: true,
+    },
+  },
+},
+
         orderBy: {
           createdAt: "desc",
         },

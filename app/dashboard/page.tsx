@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import AppLayout from "@/components/layout/AppLayout";
 import DashboardHero from "@/components/dashboard/DashboardHero";
-import MentorRecommendations from "@/components/dashboard/MentorRecommendations";
+import ActivityWidget from "@/components/dashboard/ActivityWidget";
 import AIWidget from "@/components/dashboard/AIWidget";
 import StatsGrid from "@/components/dashboard/StatsGrid";
 import OnboardingModal from "@/components/onboarding/OnboardingModal";
@@ -37,11 +37,11 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 gap-6 2xl:grid-cols-[2fr_1fr]">
 
-        <DashboardHero />
+       <DashboardHero />
 
-        <MentorRecommendations />
+<ActivityWidget />
 
-        <AIWidget />
+<AIWidget />
 
       </div>
 

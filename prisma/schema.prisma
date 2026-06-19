@@ -8,21 +8,24 @@ datasource db {
 }
 
 model User {
-  id                 String                @id @default(cuid())
-  email              String                @unique
-  fullName           String
-  password           String
-  createdAt          DateTime              @default(now())
-  updatedAt          DateTime              @updatedAt
-  role               String                @default("USER")
-  memberships        CommunityMembership[]
-  profile            Profile?
-  projectsOwned      Project[]
-  projectAnswers     ProjectAnswer[]
-  projectDiscussions ProjectDiscussion[]
-  projectMemberships ProjectMembership[]
-  projectQuestions   ProjectQuestion[]
-  projectMessages    ProjectMessage[]
+  id                      String                   @id @default(cuid())
+  email                   String                   @unique
+  fullName                String
+  password                String
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  role                    String                   @default("USER")
+  memberships             CommunityMembership[]
+  profile                 Profile?
+  projectsOwned           Project[]
+  projectAnswers          ProjectAnswer[]
+  projectDiscussions      ProjectDiscussion[]
+  projectMemberships      ProjectMembership[]
+  projectQuestions        ProjectQuestion[]
+  projectMessages         ProjectMessage[]
+  opportunities           Opportunity[]
+  savedOpportunities      SavedOpportunity[]
+  opportunityApplications OpportunityApplication[]
 }
 
 model Profile {
@@ -124,13 +127,14 @@ model Mentor {
 }
 
 model ProjectResource {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  url         String
-  createdAt   DateTime @default(now())
-  projectId   String
-  project     Project  @relation(fields: [projectId], references: [id])
+  id           String   @id @default(cuid())
+  title        String
+  description  String?
+  url          String
+  resourceType String   @default("Document")
+  createdAt    DateTime @default(now())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id])
 }
 
 model ProjectDiscussion {
@@ -184,4 +188,51 @@ model ProjectAnnouncement {
   createdAt DateTime @default(now())
   projectId String
   project   Project  @relation(fields: [projectId], references: [id])
+}
+
+model Opportunity {
+  id           String   @id @default(cuid())
+  title        String
+  organization String
+  category     String
+  location     String
+  workMode     String
+  skills       String
+  description  String
+  applyLink    String
+  deadline     DateTime
+
+  createdAt DateTime @default(now())
+
+  postedById String
+  postedBy   User   @relation(fields: [postedById], references: [id])
+
+  savedBy      SavedOpportunity[]
+  applications OpportunityApplication[]
+}
+
+model SavedOpportunity {
+  id String @id @default(cuid())
+
+  userId        String
+  opportunityId String
+
+  user        User        @relation(fields: [userId], references: [id])
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model OpportunityApplication {
+  id String @id @default(cuid())
+
+  userId String
+
+  opportunityId String
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id])
 }
