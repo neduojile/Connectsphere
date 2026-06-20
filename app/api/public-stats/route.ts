@@ -18,7 +18,10 @@ export async function GET() {
       projects,
     });
   } catch (error) {
-    console.error(error);
+    console.error(
+      "PUBLIC STATS ERROR:",
+      error
+    );
 
     return NextResponse.json(
       {

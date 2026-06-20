@@ -36,10 +36,26 @@ useEffect(() => {
           "/api/public-stats"
         );
 
-      const data =
-        await response.json();
+      if (!response.ok) {
+  throw new Error(
+    "Failed to load stats"
+  );
+}
 
-      setStats(data);
+const data =
+  await response.json();
+
+if (response.ok) {
+  setStats({
+    users:
+      data.users || 0,
+    communities:
+      data.communities || 0,
+    projects:
+      data.projects || 0,
+  });
+}
+
     } catch (error) {
       console.error(error);
     }
