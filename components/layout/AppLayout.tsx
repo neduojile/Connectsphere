@@ -8,11 +8,18 @@ import MobileSidebar from "@/components/dashboard/MobileSidebar";
 interface AppLayoutProps {
   children: ReactNode;
 }
-
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+/>
 export default function AppLayout({
   children,
+
+  
 }: AppLayoutProps) {
   return (
+
+    
     <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-black text-foreground">
 
       <FloatingAI />
@@ -54,5 +61,6 @@ export default function AppLayout({
       </main>
 
     </div>
+
   );
 }

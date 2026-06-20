@@ -93,8 +93,8 @@ const activeLink =
   top-0
   z-50
   h-screen
-  w-20
-  hover:w-72
+w-16
+hover:w-64
   transition-all
   duration-300
   border-r
@@ -114,7 +114,7 @@ const activeLink =
     <img
       src="/images/logo.png"
       alt="ConnectSphere"
-      className="h-12 w-12 object-contain"
+  className="h-8 w-8 object-contain"
     />
 <div
   className="
@@ -122,13 +122,15 @@ const activeLink =
     group-hover:block
   "
 >
-  <h1 className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-2xl font-black text-transparent">
-    ConnectSphere
-  </h1>
+  
+<h1 className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-base font-bold text-transparent leading-none">
+  ConnectSphere
+</h1>
 
-  <p className="text-xs text-zinc-500">
-    Growth Command Center
-  </p>
+<p className="text-[9px] text-zinc-500 leading-none mt-1">
+  Growth Command Center
+</p>
+
 </div>
 
   </div>
