@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import AppLayout from "@/components/layout/AppLayout";
 import {
- 
+  useEffect,
+  useState,
   useRef,
 } from "react";
 
@@ -17,9 +18,14 @@ export default function ChatPage() {
 const [messages, setMessages] =
   useState<any[]>([]);
   
+
+
   const [lastMessageCount,
   setLastMessageCount] =
   useState(0);
+
+  const [sending, setSending] =
+  useState(false);
 
   const [project, setProject] =
   useState<any>(null);
@@ -34,6 +40,9 @@ const [memberCount,
 
 const [message, setMessage] =
   useState("");
+
+const inputRef =
+  useRef<HTMLInputElement>(null);
 
 type UserType = {
   id: string;
@@ -118,17 +127,16 @@ useEffect(() => {
   loadProject();
 
   const interval =
-    setInterval(
-      loadMessages,
-      2000
-    );
+  setInterval(
+    loadMessages,
+    5000
+  );
 
   return () =>
     clearInterval(
       interval
     );
-
-}, []);
+}, [params.id]);
 
 async function loadMessages() {
 
@@ -168,32 +176,39 @@ setMessageCount(
 }
 
 async function loadProject() {
+  try {
+    const response =
+      await fetch(
+        `/api/projects/${params.id}`
+      );
 
-  const response =
-    await fetch(
-      `/api/projects/${params.id}`
+    const data =
+      await response.json();
+
+    setProjectOwnerId(
+      data?.project?.ownerId || ""
     );
-
-  const data =
-    await response.json();
-
-  setProjectOwnerId(
-    data.project.ownerId
-  );
-
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 
 async function sendMessage() {
 
-  if (!user) {
-    alert("User not loaded");
-    return;
-  }
+  if (sending) return;
 
-  if (!message.trim()) {
-    return;
-  }
+  setSending(true);
+
+  if (!user) {
+  setSending(false);
+  return;
+}
+
+if (!message.trim()) {
+  setSending(false);
+  return;
+}
 
   const response =
     await fetch(
@@ -215,19 +230,27 @@ async function sendMessage() {
     );
 
   if (!response.ok) {
+    setSending(false);
     console.error(
       "Failed to send message"
     );
     return;
   }
 
-  setMessage("");
+ setMessage("");
 
-  await loadMessages();
+inputRef.current?.focus();
+
+await loadMessages();
+
+setSending(false);
 }
 
+
+
   return (
-    <div className="flex h-[85vh] flex-col rounded-3xl border border-zinc-800 bg-zinc-950">
+  <AppLayout>
+    <div className="flex h-[calc(100vh-120px)] flex-col">
 
    <div className="border-b border-zinc-800 p-5 flex items-center justify-between">
 
@@ -305,7 +328,7 @@ async function sendMessage() {
 
  <div
   key={msg.id}
-  className={`flex max-w-[75%] gap-3 ${
+  className={`flex max-w-[90%] md:max-w-[75%] gap-3 ${
     isMine
       ? "ml-auto flex-row-reverse"
       : ""
@@ -313,7 +336,7 @@ async function sendMessage() {
 >
   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 font-bold text-black">
 
-    {msg.user?.fullName?.charAt(0)}
+    {msg.user?.fullName?.charAt(0) || "U"}
 
   </div>
 
@@ -372,10 +395,10 @@ async function sendMessage() {
       </div>
 
       <div className="border-t border-zinc-800 p-4">
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
 
-         <input
-         
+      <input
+  ref={inputRef}
   value={message}
   onChange={(e) =>
     setMessage(
@@ -391,16 +414,20 @@ async function sendMessage() {
           className="flex-1 rounded-2xl border border-zinc-800 bg-zinc-900 px-5 py-4 outline-none"
           />
 
-        <button
+     <button
   onClick={sendMessage}
-            className="rounded-2xl bg-orange-500 px-6 text-black"
-          >
-            Send
-          </button>
+  disabled={sending}
+  className="rounded-2xl bg-orange-500 px-6 py-4 font-semibold text-black disabled:opacity-50"
+>
+  {sending
+    ? "Sending..."
+    : "Send"}
+</button>
 
         </div>
       </div>
 
-    </div>
+      </div>
+  </AppLayout>
   );
 }

@@ -165,7 +165,7 @@ async function handleSend() {
         onClick={() => setOpen(true)}
         className="fixed bottom-6 right-6 z-[100] rounded-full bg-orange-500 p-4 text-black shadow-lg transition hover:scale-110"
       >
-        <Bot size={28} />
+        <Bot size={16} />
       </button>
 
       {/* Panel */}

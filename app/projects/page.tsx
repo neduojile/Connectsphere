@@ -340,6 +340,25 @@ async function deleteProject(
 
 }
 
+const activeProjects =
+  projects.filter(
+    (p) => p.status === "Active"
+  ).length;
+
+const completedProjects =
+  projects.filter(
+    (p) => p.status === "Completed"
+  ).length;
+
+const contributors =
+  projects.reduce(
+    (total, project) =>
+      total +
+      (project.memberships?.length || 0),
+    0
+  );
+
+
   return (
     <AppLayout>
       <div className="mx-auto max-w-7xl">
@@ -356,7 +375,7 @@ async function deleteProject(
               Projects Hub
             </p>
 
-            <h1 className="mt-4 text-3xl md:text-5xl font-black">
+          <h1 className="mt-4 text-2xl md:text-5xl font-black">
               Build Together
             </h1>
 
@@ -369,7 +388,7 @@ async function deleteProject(
           </div>
         </div>
 
-        <div className="mt-8 rounded-3xl border border-border bg-zinc-950 p-6">
+        <div className="mt-8 rounded-3xl border border-border bg-zinc-950 p-4 md:p-6">
 
   <h2 className="text-2xl font-bold">
     Create Project
@@ -458,11 +477,11 @@ async function deleteProject(
 
         {/* Stats */}
 
-<div className="mt-8 grid gap-4 grid-cols-1 md:grid-cols-3">
+<div className="mt-8 grid grid-cols-3 gap-3">
 
-          <div className="rounded-3xl border border-border bg-zinc-950 p-6">
-            <h3 className="text-3xl font-black text-orange-500">
-              42
+          <div className="rounded-3xl border border-border bg-zinc-950 p-4">
+            <h3 className="text-xl md:text-3xl font-black text-orange-500">
+             {activeProjects}
             </h3>
 
             <p className="text-zinc-500">
@@ -472,7 +491,7 @@ async function deleteProject(
 
           <div className="rounded-3xl border border-border bg-zinc-950 p-6">
             <h3 className="text-3xl font-black text-orange-500">
-              180+
+            {contributors}
             </h3>
 
             <p className="text-zinc-500">
@@ -482,7 +501,7 @@ async function deleteProject(
 
           <div className="rounded-3xl border border-border bg-zinc-950 p-6">
             <h3 className="text-3xl font-black text-orange-500">
-              75
+          {completedProjects}
             </h3>
 
             <p className="text-zinc-500">
@@ -494,61 +513,50 @@ async function deleteProject(
 
         {/* AI Recommended */}
 
-        <div className="mt-8 rounded-3xl border border-orange-500/30 bg-orange-500/5 p-6">
+      <div className="mt-8 rounded-2xl border border-orange-500/20 bg-orange-500/5 p-4">
 
-          <div className="flex items-center gap-3">
+  <div className="flex items-center gap-3">
 
-            <Sparkles
-              size={24}
-              className="text-orange-500"
-            />
+    <Sparkles
+      size={20}
+      className="text-orange-500"
+    />
 
-            <h2 className="text-2xl font-bold">
-              AI Recommended Projects
-            </h2>
+    <h2 className="text-xl font-bold">
+      AI Recommendations
+    </h2>
 
-          </div>
+  </div>
 
-          <p className="mt-3 text-muted-foreground">
-            Personalized project suggestions
-            based on your interests.
-          </p>
+  <p className="mt-2 text-sm text-zinc-400">
+    Personalized suggestions based on your profile.
+  </p>
 
-          <div className="mt-5 grid gap-4 md:grid-cols-1 md:grid-cols-3">
+  <div className="mt-4 grid gap-3 md:grid-cols-2">
 
-            <div className="rounded-2xl bg-card/30 p-4">
-              <h3 className="font-bold">
-                Blockchain Credentials
-              </h3>
+    <div className="rounded-xl bg-zinc-900 p-3">
+      <h3 className="font-semibold">
+        Blockchain Credential Verification
+      </h3>
 
-              <p className="mt-2 text-zinc-500">
-                Perfect for Web3 enthusiasts.
-              </p>
-            </div>
+      <p className="text-sm text-zinc-500">
+        Matches Web3 and Identity interests.
+      </p>
+    </div>
 
-            <div className="rounded-2xl bg-card/30 p-4">
-              <h3 className="font-bold">
-                AI Mentor Assistant
-              </h3>
+    <div className="rounded-xl bg-zinc-900 p-3">
+      <h3 className="font-semibold">
+        AI Mentor Platform
+      </h3>
 
-              <p className="mt-2 text-zinc-500">
-                Great for AI and ML learners.
-              </p>
-            </div>
+      <p className="text-sm text-zinc-500">
+        Matches AI and Community Building.
+      </p>
+    </div>
 
-            <div className="rounded-2xl bg-card/30 p-4">
-              <h3 className="font-bold">
-                ConnectSphere Mobile App
-              </h3>
+  </div>
 
-              <p className="mt-2 text-zinc-500">
-                Ideal for mobile developers.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
+</div>
 
 <div className="mt-8 grid gap-6 lg:grid-cols-2">
 
@@ -668,7 +676,7 @@ async function deleteProject(
 
         {/* Project Cards */}
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+     <div className="mt-10 grid gap-4 md:grid-cols-2">
 
         {projects.length > 0 ? (
  filteredProjects.map(
@@ -693,7 +701,7 @@ async function deleteProject(
 
              <div className="mt-5 flex items-center gap-3">
 
-  <h2 className="text-2xl font-bold">
+  <h2 className="text-lg md:text-2xlfont-bold">
     {project.title}
   </h2>
 
@@ -745,7 +753,7 @@ async function deleteProject(
 
               </div>
 
-              <div className="mt-6 flex gap-3">
+             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
 
                 <button
                  onClick={() =>
