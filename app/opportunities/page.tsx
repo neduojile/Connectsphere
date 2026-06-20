@@ -1,16 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import AppLayout from "@/components/layout/AppLayout";
 import {
   Briefcase,
-  Search,
   MapPin,
   Bookmark,
-  ExternalLink,
   Building2,
   Calendar,
-  Plus,
 } from "lucide-react";
 
 export default function OpportunitiesPage() {
@@ -328,8 +325,11 @@ const filtered =
   );
 
 return (
+
+  <AppLayout>
+
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
-    <div className="grid gap-4 md:grid-cols-4">
+   <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
 
 
@@ -346,7 +346,7 @@ return (
       className="text-orange-500"
     />
 
-    <h1 className="text-3xl md:text-5xl font-black">
+    <h1 className="text-3xl md:text-3xl md:text-5xl font-black">
       Opportunities
     </h1>
 
@@ -623,9 +623,8 @@ return (
   </h2>
 
   <p className="mt-3 text-zinc-500">
-    Be the first person to post an
-    internship, job, scholarship,
-    fellowship or grant.
+    opportunities would appear here when available
+  
   </p>
 
 </div>
@@ -633,7 +632,7 @@ return (
 
     </div>
 
-   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
       <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
 
@@ -696,6 +695,6 @@ return (
     </div>
 
       </div>
-
+</AppLayout>
 );
 }

@@ -346,7 +346,7 @@ async function deleteProject(
 
         {/* Hero */}
 
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-8">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-4 md:p-4 md:p-8">
 
           <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-orange-500/10 blur-3xl" />
 
@@ -356,7 +356,7 @@ async function deleteProject(
               Projects Hub
             </p>
 
-            <h1 className="mt-4 text-5xl font-black">
+            <h1 className="mt-4 text-3xl md:text-5xl font-black">
               Build Together
             </h1>
 
@@ -458,7 +458,7 @@ async function deleteProject(
 
         {/* Stats */}
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+<div className="mt-8 grid gap-4 grid-cols-1 md:grid-cols-3">
 
           <div className="rounded-3xl border border-border bg-zinc-950 p-6">
             <h3 className="text-3xl font-black text-orange-500">
@@ -514,7 +514,7 @@ async function deleteProject(
             based on your interests.
           </p>
 
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <div className="mt-5 grid gap-4 md:grid-cols-1 md:grid-cols-3">
 
             <div className="rounded-2xl bg-card/30 p-4">
               <h3 className="font-bold">

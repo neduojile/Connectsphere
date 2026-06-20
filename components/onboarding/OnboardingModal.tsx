@@ -181,10 +181,11 @@ if (data.success) {
     return (
     <AnimatePresence>
       {open && (
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
+       <motion.div
+  data-onboarding="true"
+  initial={{
+    opacity: 0,
+  }}
           animate={{
             opacity: 1,
           }}
@@ -207,7 +208,7 @@ if (data.success) {
             transition={{
               duration: 0.4,
             }}
-            className="relative z-50 w-full max-w-4xl overflow-y-auto max-h-[95vh] rounded-3xl border border-border bg-zinc-950 p-4 md:p-8 text-white shadow-2xl"
+            className="relative z-50 w-full max-w-4xl overflow-y-auto max-h-[95vh] rounded-3xl border border-border bg-zinc-950 p-4 md:p-4 md:p-4 md:p-8 text-white shadow-2xl"
           >
             <div className="pointer-events-none absolute -top-20 right-0 h-72 w-72 rounded-full bg-orange-500/20 blur-3xl" />
 
@@ -231,7 +232,7 @@ if (data.success) {
 
 </div>
 
-           <h2 className="mt-4 text-3xl md:text-4xl font-black">
+           <h2 className="mt-4 text-3xl md:text-2xl md:text-4xl font-black">
               Personalize Your Journey
             </h2>
 
@@ -380,7 +381,7 @@ if (data.success) {
                     </span>
                   </div>
 
-                  <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
+                  <div className="grid gap-3 grid-cols-2 md:grid-cols-1 md:grid-cols-3">
                     {skillOptions.map(
                       (skill) => (
                         <button
@@ -546,7 +547,7 @@ if (data.success) {
 
             </motion.div>
 
-            <div className="mt-8 flex justify-between">
+            <div className="sticky bottom-0 mt-8 flex justify-between border-t border-zinc-800 bg-zinc-950 pt-4">
 
               <button
                 type="button"

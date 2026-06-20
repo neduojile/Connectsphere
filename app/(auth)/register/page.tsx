@@ -56,19 +56,19 @@ if (password !== confirmPassword) {
       const data =
         await response.json();
 
-      if (response.ok) {
-       toast.success(
-  "Account Created Successfully",
-  {
-    duration: 4000,
-  }
-);
+     if (response.ok) {
+  toast.success(
+    "Account Created Successfully",
+    {
+      duration: 2000,
+    }
+  );
 
-        setFullName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-      } else {
+  setTimeout(() => {
+    window.location.href =
+      "/login";
+  }, 2000);
+} else {
        toast.error(
   data.error || "Registration Failed"
 );
@@ -112,7 +112,7 @@ if (password !== confirmPassword) {
       border
       border-orange-500/20
       bg-zinc-950/90
-      p-8
+      p-4 md:p-4 md:p-8
       backdrop-blur-xl
       shadow-[0_0_80px_rgba(249,115,22,0.25)]
     "
@@ -124,8 +124,10 @@ if (password !== confirmPassword) {
   alt="ConnectSphere"
   className="
     mx-auto
-    h-24
-    w-24
+    h-16
+    w-16
+    md:h-24
+    md:w-24
     object-contain
     drop-shadow-[0_0_25px_rgba(249,115,22,0.4)]
   "
@@ -133,7 +135,7 @@ if (password !== confirmPassword) {
 
 
 
-  <h1 className="mt-4 text-3xl font-bold">
+ <h1 className="mt-4 text-2xl md:text-3xl font-bold">
     Create Account
   </h1>
 

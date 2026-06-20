@@ -18,7 +18,7 @@ export default function DiscussionsPage() {
 
       <div>
 
-        <h1 className="text-4xl font-black">
+        <h1 className="text-2xl md:text-4xl font-black">
           Discussions
         </h1>
 

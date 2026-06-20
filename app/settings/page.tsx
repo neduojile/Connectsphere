@@ -552,7 +552,7 @@ async function exportProfileData() {
 
         {/* Hero */}
 
-        <div className="relative overflow-hidden rounded-3xl border border-borderbg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-8">
+        <div className="relative overflow-hidden rounded-3xl border border-borderbg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-4 md:p-4 md:p-8">
 
           <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-orange-500/10 blur-3xl" />
 
@@ -562,7 +562,7 @@ async function exportProfileData() {
               Settings Center
             </p>
 
-            <h1 className="mt-4 text-5xl font-black">
+            <h1 className="mt-4 text-3xl md:text-5xl font-black">
               Account Settings
             </h1>
 
@@ -578,7 +578,7 @@ async function exportProfileData() {
 
         {/* Stats */}
 
-        <div className="mt-8 grid gap-4 md:grid-cols-4">
+        <div className="mt-8 grid gap-4 md:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
          <div className="rounded-3xl border border-border bg-card p-6">
             <h3 className="text-3xl font-black text-orange-500">

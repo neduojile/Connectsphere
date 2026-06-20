@@ -226,7 +226,7 @@ async function deleteAnswer(
 
         <div>
 
-          <h1 className="text-4xl font-black">
+          <h1 className="text-2xl md:text-4xl font-black">
             Questions & Answers
           </h1>
 

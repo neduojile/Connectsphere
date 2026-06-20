@@ -28,7 +28,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-4 md:p-4 md:p-8 md:flex">
 
           <Link
             href="/"
@@ -38,21 +38,21 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/communities"
+            href="/login"
             className="text-zinc-300 transition hover:text-orange-500"
           >
             Communities
           </Link>
 
           <Link
-            href="/projects"
+           href="/login"
             className="text-zinc-300 transition hover:text-orange-500"
           >
             Projects
           </Link>
 
           <Link
-            href="/opportunities"
+             href="/login"
             className="text-zinc-300 transition hover:text-orange-500"
           >
             Opportunities

@@ -92,7 +92,7 @@ export default function DashboardHero() {
       transition={{
         duration: 0.6,
       }}
-      className="relative overflow-hidden rounded-3xl border border-border bg-zinc-950 p-6 md:p-8 lg:p-10"
+      className="relative overflow-hidden rounded-3xl border border-border bg-zinc-950 p-6 md:p-4 md:p-4 md:p-8 lg:p-10"
     >
       <div className="absolute -top-20 right-0 h-80 w-80 rounded-full bg-orange-500/20 blur-3xl" />
 
@@ -116,7 +116,7 @@ export default function DashboardHero() {
 
 </div>
 
-      <h1 className="mt-4 text-4xl font-black leading-tight md:text-5xl xl:text-6xl">
+      <h1 className="mt-4 text-2xl md:text-4xl font-black leading-tight md:text-3xl md:text-5xl xl:text-6xl">
         Welcome Back,
         <br />
         {fullName}
@@ -171,7 +171,7 @@ export default function DashboardHero() {
   className="relative mt-6 overflow-hidden rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-500/10 via-zinc-950 to-zinc-950 p-5"
 >
 
-  <div className="absolute -top-8 right-0 h-24 w-24 rounded-full bg-orange-500/20 blur-3xl animate-pulse" />
+  <div className="absolute -top-4 md:p-4 md:p-8 right-0 h-24 w-24 rounded-full bg-orange-500/20 blur-3xl animate-pulse" />
 
   <div className="absolute bottom-0 left-0 h-20 w-20 rounded-full bg-orange-500/10 blur-3xl animate-pulse" />
 
@@ -184,7 +184,7 @@ export default function DashboardHero() {
       duration: 8,
       repeat: Infinity,
     }}
-    className="absolute right-10 top-8 text-orange-500/20 text-6xl font-black"
+    className="absolute right-10 top-4 md:p-4 md:p-8 text-orange-500/20 text-6xl font-black"
   >
     ✦
   </motion.div>

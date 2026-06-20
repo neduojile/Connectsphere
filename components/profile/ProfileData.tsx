@@ -75,7 +75,7 @@ export default function ProfileData() {
   return (
     <>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-4">
+      <div className="mt-8 grid gap-4 md:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
         <div className="rounded-3xl border border-border bg-zinc-950 p-6">
           <Award

@@ -139,7 +139,7 @@ useEffect(() => {
     <AppLayout>
       <div className="mx-auto max-w-7xl">
 
-        <div className="rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-8">
+        <div className="rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-4 md:p-4 md:p-8">
 
           <div className="flex items-center gap-4">
 
@@ -151,7 +151,7 @@ useEffect(() => {
             </div>
 
             <div>
-             <h1 className="bg-gradient-to-r from-white via-white to-orange-500 bg-clip-text text-4xl font-black text-transparent">
+             <h1 className="bg-gradient-to-r from-white via-white to-orange-500 bg-clip-text text-2xl md:text-4xl font-black text-transparent">
   AI Growth Coach
 </h1>
 
@@ -174,7 +174,7 @@ useEffect(() => {
 
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-4">
+        <div className="mt-8 grid gap-4 md:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
           <button
             onClick={() =>
@@ -238,7 +238,7 @@ useEffect(() => {
 
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 md:grid-cols-1 md:grid-cols-3">
 
           <div className="rounded-3xl border border-border bg-zinc-950 p-5">
             <Sparkles className="mb-3 text-orange-500" />

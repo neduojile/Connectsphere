@@ -18,10 +18,10 @@ export default function ImageSection({
   reverse = false,
 }: ImageSectionProps) {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
+    <section className="mx-auto max-w-7xl px-6 py-12 md:py-24">
 
       <div
-        className={`grid items-center gap-12 lg:grid-cols-2 ${
+        className={`grid items-center gap-6 md:p-12 lg:grid-cols-2 ${
           reverse ? "lg:[&>*:first-child]:order-2" : ""
         }`}
       >
@@ -35,7 +35,7 @@ export default function ImageSection({
         </div>
 
         <div>
-          <h2 className="text-4xl font-black md:text-5xl">
+          <h2 className="text-2xl md:text-4xl font-black md:text-3xl md:text-5xl">
             {title}
           </h2>
 

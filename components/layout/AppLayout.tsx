@@ -33,7 +33,7 @@ export default function AppLayout({
 </header>
 
       {/* Main Content */}
-      <main className="mx-auto w-full max-w-[1600px] px-4 py-6 sm:px-6 lg:ml-72 lg:px-8 lg:py-8">
+<main className="mx-auto w-full max-w-[1600px] px-3 py-4 sm:px-5 lg:ml-72 lg:px-8 lg:py-8">
 
         <div className="animate-in fade-in duration-500">
           {children}

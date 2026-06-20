@@ -86,7 +86,7 @@ const activeLink =
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-72 border-r border-border bg-white dark:bg-zinc-950">
-      <div className="flex h-full flex-col p-8">
+      <div className="flex h-full flex-col p-4 md:p-4 md:p-8">
 
 
       <div>

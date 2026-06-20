@@ -18,15 +18,44 @@ import AIGrowthCoach from "@/components/landing/AIGrowthCoach";
 import Navbar from "@/components/layout/Navbar";
 import StatsCard from "@/components/landing/StatsCard";
 import ImageSection from "@/components/landing/ImageSection";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+
+  const [stats, setStats] = useState({
+  users: 0,
+  communities: 0,
+  projects: 0,
+});
+
+useEffect(() => {
+  async function loadStats() {
+    try {
+      const response =
+        await fetch(
+          "/api/public-stats"
+        );
+
+      const data =
+        await response.json();
+
+      setStats(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  loadStats();
+}, []);
+
+
   return (
     <main className="min-h-screen bg-card text-white">
       <Navbar/>
 
       
 
-  <section className="relative mx-auto max-w-7xl px-6 py-16">
+<section className="relative mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-10 md:py-16">
 
   <div className="absolute left-1/2 top-40 -z-10 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-orange-500/10 blur-3xl" />
 
@@ -198,7 +227,7 @@ export default function Home() {
         The Intelligent Collaboration Ecosystem
       </span>
 
-     <h1 className="relative z-10 text-5xl font-black leading-tight md:text-7xl lg:text-8xl">
+     <h1 className="relative z-10 text-3xl md:text-5xl font-black leading-tight md:text-4xl md:text-7xl lg:text-4xl md:text-7xl">
         Connect.
         <br />
         Collaborate.
@@ -206,14 +235,14 @@ export default function Home() {
         Grow.
       </h1>
 
-      <p className="mt-8 max-w-2xl text-lg text-muted-foreground">
+      <p className="mt-6 max-w-2xl text-base md:text-lg text-muted-foreground">
         Discover mentors, communities,
         opportunities and projects designed
         to help RCCG youths create meaningful
         impact globally.
       </p>
 
-      <div className="mt-10 flex flex-wrap gap-4">
+      <div className="mt-8 flex flex-wrap gap-3 md:gap-4">
 
         <Link
           href="/register"
@@ -223,30 +252,29 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/communities"
+          href="/login"
           className="rounded-xl border border-zinc-700 px-6 py-3 transition hover:border-orange-500"
         >
           Explore Communities
         </Link>
 
       </div>
+<div className="mt-10 grid grid-cols-2 gap-4 md:mt-16 md:grid-cols-1 md:grid-cols-3 md:gap-6">
 
-      <div className="mt-16 grid gap-6 md:grid-cols-3">
+      <StatsCard
+  number={stats.users.toString()}
+  label="Members"
+/>
 
-        <StatsCard
-          number="5000+"
-          label="Youth Connections"
-        />
+<StatsCard
+  number={stats.communities.toString()}
+  label="Communities"
+/>
 
-        <StatsCard
-          number="200+"
-          label="Mentors"
-        />
-
-        <StatsCard
-          number="100+"
-          label="Communities"
-        />
+<StatsCard
+  number={stats.projects.toString()}
+  label="Projects"
+/>
 
       </div>
 
@@ -254,7 +282,7 @@ export default function Home() {
 
     {/* RIGHT SIDE */}
 
-   <div className="relative h-[400px] lg:h-[550px]">
+  <div className="relative hidden h-[400px] lg:block lg:h-[550px]">
 
       <img
         src="/images/community.jpg"
@@ -333,13 +361,13 @@ object-cover
           shadow-xl
         "
       >
-        <p className="text-sm text-zinc-400">
-          Active Members
-        </p>
+       <p className="text-sm text-zinc-400">
+  Active Members
+</p>
 
-        <h3 className="text-3xl font-black text-orange-500">
-          5,000+
-        </h3>
+<h3 className="text-3xl font-black text-orange-500">
+  {stats.users}
+</h3>
       </div>
 
     </div>
@@ -347,7 +375,7 @@ object-cover
   </div>
 
 </section>
-<section className="mx-auto max-w-7xl px-6 py-24">
+<section className="mx-auto max-w-7xl px-6 py-12 md:py-24">
 
   <div className="text-center">
 
@@ -355,7 +383,7 @@ object-cover
       Platform Features
     </span>
 
-    <h2 className="mt-4 text-5xl font-black">
+    <h2 className="mt-4 text-3xl md:text-5xl font-black">
       Everything You Need To Grow
     </h2>
 
@@ -367,9 +395,9 @@ object-cover
 
   </div>
 
-  <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+  <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-8 transition duration-300 hover:-translate-y-2 hover:border-orange-500">
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-4 md:p-4 md:p-8 transition duration-300 hover:-translate-y-2 hover:border-orange-500">
 
      <Users
   size={48}
@@ -389,7 +417,7 @@ object-cover
 
     </div>
 
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-8 transition duration-300 hover:-translate-y-2 hover:border-orange-500">
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-4 md:p-4 md:p-8 transition duration-300 hover:-translate-y-2 hover:border-orange-500">
 
       <Briefcase
   size={48}
@@ -409,7 +437,7 @@ object-cover
 
     </div>
 
-    <div className="group rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900 to-black p-8 transition-all duration-500 hover:-translate-y-3 hover:border-orange-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.25)]">
+    <div className="group rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900 to-black p-4 md:p-4 md:p-8 transition-all duration-500 hover:-translate-y-3 hover:border-orange-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.25)]">
 
     <FolderKanban
   size={48}
@@ -429,7 +457,7 @@ object-cover
 
     </div>
 
-    <div className="group rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900 to-black p-8 transition-all duration-500 hover:-translate-y-3 hover:border-orange-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.25)]">
+    <div className="group rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900 to-black p-4 md:p-4 md:p-8 transition-all duration-500 hover:-translate-y-3 hover:border-orange-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.25)]">
 
      <Bot
   size={48}
@@ -453,7 +481,7 @@ object-cover
 
 </section>
 
-<section className="mx-auto max-w-7xl px-6 py-24">
+<section className="mx-auto max-w-7xl px-6 py-12 md:py-24">
 
   <div className="text-center">
 
@@ -461,7 +489,7 @@ object-cover
       Your Journey
     </span>
 
-    <h2 className="mt-4 text-5xl font-black">
+    <h2 className="mt-4 text-3xl md:text-5xl font-black">
       How Growth Happens
     </h2>
 
@@ -472,9 +500,9 @@ object-cover
 
   </div>
 
-  <div className="mt-20 grid gap-8 lg:grid-cols-4">
+  <div className="mt-20 grid gap-4 md:p-4 md:p-8 lg:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
-    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
+    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-4 md:p-4 md:p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
 
       <UserPlus
         size={56}
@@ -492,7 +520,7 @@ object-cover
 
     </div>
 
-    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
+    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-4 md:p-4 md:p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
 
       <Handshake
         size={56}
@@ -510,7 +538,7 @@ object-cover
 
     </div>
 
-    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
+    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-4 md:p-4 md:p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
 
       <Target
         size={56}
@@ -528,7 +556,7 @@ object-cover
 
     </div>
 
-    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
+    <div className="group rounded-[32px] border border-zinc-800 bg-zinc-950/60 p-4 md:p-4 md:p-8 backdrop-blur transition-all duration-500 hover:-translate-y-3 hover:border-orange-500">
 
       <Trophy
         size={56}
@@ -564,7 +592,7 @@ object-cover
 
     <div>
 
-      <h2 className="text-5xl font-black">
+      <h2 className="text-3xl md:text-5xl font-black">
         Growth With Purpose
       </h2>
 
@@ -582,11 +610,11 @@ object-cover
 
 </section>
 
-<section className="mx-auto max-w-7xl px-6 py-24">
+<section className="mx-auto max-w-7xl px-6 py-12 md:py-24">
 
-  <div className="overflow-hidden rounded-[40px] bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600 p-12 text-center shadow-2xl">
+  <div className="overflow-hidden rounded-[40px] bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600 p-6 md:p-12 text-center shadow-2xl">
 
-    <h2 className="text-5xl font-black text-black">
+    <h2 className="text-3xl md:text-5xl font-black text-black">
       Ready To Accelerate Your Growth?
     </h2>
 
@@ -619,9 +647,9 @@ object-cover
 
 </section>
 
-<footer className="border-t border-zinc-800 px-6 py-16">
+<footer className="border-t border-zinc-800 px-6 py-10 md:py-16">
 
-  <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-4">
+  <div className="mx-auto grid max-w-7xl gap-6 md:p-12 md:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
     <div>
 

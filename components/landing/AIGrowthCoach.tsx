@@ -6,7 +6,7 @@ export default function AIGrowthCoach() {
           AI Growth Coach
         </span>
 
-        <h2 className="mt-4 text-4xl font-bold md:text-5xl">
+        <h2 className="mt-4 text-2xl md:text-4xl font-bold md:text-3xl md:text-5xl">
           Personalized growth guidance for every youth.
         </h2>
 
@@ -17,7 +17,7 @@ export default function AIGrowthCoach() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border bg-zinc-950 p-8">
+      <div className="rounded-3xl border border-border bg-zinc-950 p-4 md:p-4 md:p-8">
         <div className="grid gap-6 md:grid-cols-2">
 
           <div>

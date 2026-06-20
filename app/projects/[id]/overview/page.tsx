@@ -178,13 +178,13 @@ setActivities(
 
         <div className="h-48 bg-gradient-to-r from-orange-500/20 via-orange-400/10 to-transparent" />
 
-        <div className="p-8">
+        <div className="p-4 md:p-4 md:p-8">
 
           <div className="flex items-start justify-between">
 
             <div>
 
-              <h1 className="text-5xl font-black">
+              <h1 className="text-3xl md:text-5xl font-black">
                 {project?.title ||
   "Loading Project"}
               </h1>
@@ -229,14 +229,14 @@ setActivities(
 
       </div>
 
-     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
         <div className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6">
           <p className="text-sm text-zinc-500">
             Team Members
           </p>
 
-          <h2 className="mt-3 text-4xl font-black">
+          <h2 className="mt-3 text-2xl md:text-4xl font-black">
             {stats.members}
           </h2>
         </div>
@@ -246,7 +246,7 @@ setActivities(
             Resources
           </p>
 
-          <h2 className="mt-3 text-4xl font-black">
+          <h2 className="mt-3 text-2xl md:text-4xl font-black">
             {stats.resources}
           </h2>
         </div>
@@ -256,7 +256,7 @@ setActivities(
             Questions
           </p>
 
-          <h2 className="mt-3 text-4xl font-black">
+          <h2 className="mt-3 text-2xl md:text-4xl font-black">
             {stats.questions}
           </h2>
         </div>
@@ -266,14 +266,14 @@ setActivities(
             Discussions
           </p>
 
-          <h2 className="mt-3 text-4xl font-black">
+          <h2 className="mt-3 text-2xl md:text-4xl font-black">
             {stats.discussions}
           </h2>
         </div>
 
       </div>
 
-     <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+     <div className="grid grid-cols-1 gap-6 xl:grid-cols-1 md:grid-cols-3">
 
    <div className="xl:col-span-2 rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
 
@@ -460,7 +460,7 @@ setActivities(
 
        {showActions && (
 
-  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-1 md:grid-cols-3">
 
     <button
       onClick={() =>

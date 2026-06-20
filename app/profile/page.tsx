@@ -10,7 +10,7 @@ export default function ProfilePage() {
 
         {/* Header */}
 
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-8">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-4 md:p-4 md:p-8">
 
           <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-orange-500/10 blur-3xl" />
 

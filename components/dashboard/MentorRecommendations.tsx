@@ -63,7 +63,7 @@ export default function MentorRecommendations() {
 
       {loading ? (
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-1 md:grid-cols-3">
 
           {[1, 2, 3].map((item) => (
             <div
@@ -84,7 +84,7 @@ export default function MentorRecommendations() {
 
       ) : mentors.length === 0 ? (
 
-        <div className="rounded-2xl border border-border bg-zinc-950 p-8 text-center">
+        <div className="rounded-2xl border border-border bg-zinc-950 p-4 md:p-4 md:p-8 text-center">
 
           <h3 className="text-xl font-bold">
             No Mentor Match Yet
@@ -100,7 +100,7 @@ export default function MentorRecommendations() {
 
       ) : (
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-1 md:grid-cols-3">
 
           {mentors.map((mentor) => (
             <div

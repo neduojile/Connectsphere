@@ -21,7 +21,36 @@ export default function FloatingAI() {
 
   const pathname = usePathname();
 
-  if (pathname === "/ai-coach") {
+const [isOnboardingOpen, setIsOnboardingOpen] =
+  useState(false);
+
+useEffect(() => {
+  const checkOnboarding = () => {
+    setIsOnboardingOpen(
+      !!document.querySelector(
+        "[data-onboarding='true']"
+      )
+    );
+  };
+
+  checkOnboarding();
+
+  const interval =
+    setInterval(
+      checkOnboarding,
+      500
+    );
+
+  return () =>
+    clearInterval(interval);
+}, []);  
+
+ if (
+  pathname === "/ai-coach" ||
+  pathname === "/login" ||
+  pathname === "/register" ||
+  isOnboardingOpen
+) {
   return null;
 }
 
@@ -51,6 +80,7 @@ const [messages, setMessages] = useState<
           },
         ];
   });
+
 
   useEffect(() => {
   saveMessages(messages);

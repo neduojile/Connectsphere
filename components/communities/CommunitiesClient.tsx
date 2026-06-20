@@ -37,7 +37,7 @@ export default function CommunitiesClient({
         setSearch={setSearch}
       />
 
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-1 md:grid-cols-3">
 
         {filteredCommunities.map(
           (community) => (
@@ -114,7 +114,7 @@ export default function CommunitiesClient({
 
       {filteredCommunities.length === 0 && (
 
-        <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-12 text-center">
+        <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 md:p-12 text-center">
 
           <Users
             size={60}

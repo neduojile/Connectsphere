@@ -81,7 +81,7 @@ setUser(data.user);
 
   ) : (
 
-    <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-black bg-zinc-900 text-4xl font-black">
+    <div className="flex h-28 w-28 items-center justify-center rounded-full border-4 border-black bg-zinc-900 text-2xl md:text-4xl font-black">
       {initials}
     </div>
 
@@ -89,7 +89,7 @@ setUser(data.user);
 
 </div>
 
-      <h1 className="mt-5 text-4xl font-black">
+      <h1 className="mt-5 text-2xl md:text-4xl font-black">
         {user.fullName}
       </h1>
 

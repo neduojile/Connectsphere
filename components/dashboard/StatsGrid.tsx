@@ -129,13 +129,14 @@ export default function StatsGrid() {
     border: "border-zinc-700",
   },
 ]);
+
     }
 
     loadStats();
   }, []);
 
   return (
-    <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-4">
+    <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
       {stats.map(
         (
           stat,
@@ -183,7 +184,7 @@ export default function StatsGrid() {
                 </span>
               </div>
 
-              <h2 className="mt-6 text-4xl font-black md:text-5xl">
+              <h2 className="mt-6 text-2xl md:text-4xl font-black md:text-3xl md:text-5xl">
                 <CountUp
                   end={
                     stat.value

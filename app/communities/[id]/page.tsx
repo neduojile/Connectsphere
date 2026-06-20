@@ -30,7 +30,7 @@ export default async function CommunityPage({
     return (
       <AppLayout>
         <div className="mx-auto max-w-5xl">
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-2xl md:text-4xl font-bold">
             Community Not Found
           </h1>
         </div>
@@ -49,7 +49,7 @@ export default async function CommunityPage({
           ← Back to Communities
         </Link>
 
-        <div className="relative mt-6 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-8">
+        <div className="relative mt-6 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-zinc-950 via-zinc-950 to-orange-950/20 p-4 md:p-4 md:p-8">
 
           <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-orange-500/10 blur-3xl" />
 
@@ -67,7 +67,7 @@ export default async function CommunityPage({
             </div>
 
             {/* Community Info */}
-            <h1 className="text-5xl font-black">
+            <h1 className="text-3xl md:text-5xl font-black">
               {community.name}
             </h1>
 
@@ -118,7 +118,7 @@ export default async function CommunityPage({
             </div>
 
             {/* Stats */}
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <div className="mt-10 grid gap-4 md:grid-cols-1 md:grid-cols-3">
 
               <div className="rounded-2xl border border-border bg-card/30 p-5">
                 <div className="flex items-center gap-2">
@@ -218,7 +218,7 @@ export default async function CommunityPage({
     Community Leaders
   </h2>
 
-  <div className="grid gap-5 md:grid-cols-3">
+  <div className="grid gap-5 md:grid-cols-1 md:grid-cols-3">
 
     <div className="rounded-3xl border border-border bg-zinc-950/60 p-6">
       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-xl font-bold text-black">

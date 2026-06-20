@@ -93,7 +93,7 @@ export default function LoginPage() {
 <div className="absolute left-0 top-0 h-[400px] w-[400px] rounded-full bg-orange-500/5 blur-[120px]" />
 
 <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-orange-400/5 blur-[120px]" />
- <div className="relative w-full max-w-md rounded-3xl border border-orange-500/20 bg-zinc-950/90 p-8 backdrop-blur-xl shadow-[0_0_80px_rgba(249,115,22,0.25)]">
+ <div className="relative w-full max-w-md rounded-3xl border border-orange-500/20 bg-zinc-950/90 p-4 md:p-4 md:p-8 backdrop-blur-xl shadow-[0_0_80px_rgba(249,115,22,0.25)]">
 
         <div className="mb-8 text-center animate-fade-in">
 

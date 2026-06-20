@@ -111,7 +111,7 @@ export default function MembersPage() {
             className="text-orange-500"
           />
 
-          <h1 className="text-4xl font-black">
+          <h1 className="text-2xl md:text-4xl font-black">
             Members
           </h1>
 

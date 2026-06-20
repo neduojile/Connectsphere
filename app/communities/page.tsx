@@ -44,7 +44,7 @@ const totalMembers =
             ConnectSphere
           </p>
 
-          <h1 className="mt-4 text-4xl font-black md:text-5xl">
+          <h1 className="mt-4 text-2xl md:text-4xl font-black md:text-3xl md:text-5xl">
             Communities
           </h1>
 
@@ -57,7 +57,7 @@ const totalMembers =
 
         </div>
 
-        <div className="mb-8 grid gap-4 md:grid-cols-3">
+        <div className="mb-8 grid gap-4 md:grid-cols-1 md:grid-cols-3">
 
           <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
 
@@ -74,7 +74,7 @@ const totalMembers =
 
             </div>
 
-            <h2 className="mt-5 text-4xl font-black text-orange-500">
+            <h2 className="mt-5 text-2xl md:text-4xl font-black text-orange-500">
               {communities.length}
             </h2>
 
@@ -99,7 +99,7 @@ const totalMembers =
 
             </div>
 
-            <h2 className="mt-5 text-4xl font-black text-orange-500">
+            <h2 className="mt-5 text-2xl md:text-4xl font-black text-orange-500">
               {totalMembers}
             </h2>
 
@@ -124,7 +124,7 @@ const totalMembers =
 
             </div>
 
-            <h2 className="mt-5 text-4xl font-black text-orange-500">
+            <h2 className="mt-5 text-2xl md:text-4xl font-black text-orange-500">
               {communities.length}
             </h2>
 
