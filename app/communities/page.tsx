@@ -1,38 +1,82 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import AppLayout from "@/components/layout/AppLayout";
 import CommunitiesClient from "@/components/communities/CommunitiesClient";
-import { prisma } from "@/lib/prisma";
 import {
   Users,
   Network,
   Activity,
 } from "lucide-react";
 
-export default async function CommunitiesPage() {
+export default function CommunitiesPage() {
 
-  const communities =
-    await prisma.community.findMany({
-      include: {
-        _count: {
-          select: {
-            memberships: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+  const [communities,
+    setCommunities] =
+    useState<any[]>([]);
 
-const totalMembers =
-  communities.reduce(
-    (
-      total: number,
-      community: any
-    ) =>
-      total +
-      community._count.memberships,
-    0
-  );
+  const [totalMembers,
+    setTotalMembers] =
+    useState(0);
+
+  const [loading,
+    setLoading] =
+    useState(true);
+
+  useEffect(() => {
+
+    async function loadCommunities() {
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/communities/list"
+          );
+
+        const data =
+          await response.json();
+
+        if (data.success) {
+
+          setCommunities(
+            data.communities || []
+          );
+
+          setTotalMembers(
+            data.totalMembers || 0
+          );
+
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+      } finally {
+
+        setLoading(false);
+
+      }
+
+    }
+
+    loadCommunities();
+
+  }, []);
+
+  if (loading) {
+
+    return (
+      <AppLayout>
+        <div className="p-10">
+          Loading Communities...
+        </div>
+      </AppLayout>
+    );
+
+  }
+
   return (
     <AppLayout>
 
@@ -44,7 +88,7 @@ const totalMembers =
             ConnectSphere
           </p>
 
-          <h1 className="mt-4 text-2xl md:text-4xl font-black md:text-3xl md:text-5xl">
+          <h1 className="mt-4 text-4xl md:text-5xl font-black">
             Communities
           </h1>
 
@@ -57,7 +101,7 @@ const totalMembers =
 
         </div>
 
-        <div className="mb-8 grid gap-4 md:grid-cols-1 md:grid-cols-3">
+        <div className="mb-8 grid gap-4 md:grid-cols-3">
 
           <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
 
@@ -74,7 +118,7 @@ const totalMembers =
 
             </div>
 
-            <h2 className="mt-5 text-2xl md:text-4xl font-black text-orange-500">
+            <h2 className="mt-5 text-4xl font-black text-orange-500">
               {communities.length}
             </h2>
 
@@ -99,7 +143,7 @@ const totalMembers =
 
             </div>
 
-            <h2 className="mt-5 text-2xl md:text-4xl font-black text-orange-500">
+            <h2 className="mt-5 text-4xl font-black text-orange-500">
               {totalMembers}
             </h2>
 
@@ -124,7 +168,7 @@ const totalMembers =
 
             </div>
 
-            <h2 className="mt-5 text-2xl md:text-4xl font-black text-orange-500">
+            <h2 className="mt-5 text-4xl font-black text-orange-500">
               {communities.length}
             </h2>
 
