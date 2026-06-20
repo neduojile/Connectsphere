@@ -8,10 +8,7 @@ import MobileSidebar from "@/components/dashboard/MobileSidebar";
 interface AppLayoutProps {
   children: ReactNode;
 }
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1"
-/>
+
 export default function AppLayout({
   children,
 
@@ -44,13 +41,13 @@ export default function AppLayout({
   className="
   mx-auto
   w-full
-  max-w-[1600px]
+  max-w-[1200px]
   px-3
   py-4
-  sm:px-5
+  sm:px-4
   lg:ml-20
-  lg:px-8
-  lg:py-8
+  lg:px-4
+  lg:py-4
 "
 >
 

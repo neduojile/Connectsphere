@@ -92,7 +92,7 @@ export default function DashboardHero() {
       transition={{
         duration: 0.6,
       }}
-      className="relative overflow-hidden rounded-3xl border border-border bg-zinc-950 p-6 md:p-4 md:p-4 md:p-8 lg:p-10"
+     className="relative overflow-hidden rounded-3xl border border-border bg-zinc-950 p-4 md:p-5 lg:p-6"
     >
       <div className="absolute -top-20 right-0 h-80 w-80 rounded-full bg-orange-500/20 blur-3xl" />
 
@@ -116,13 +116,13 @@ export default function DashboardHero() {
 
 </div>
 
-      <h1 className="mt-4 text-2xl md:text-4xl font-black leading-tight md:text-3xl md:text-5xl xl:text-6xl">
+ <h1 className="mt-4 text-2xl md:text-3xl lg:text-[3rem] font-black leading-tight">
         Welcome Back,
         <br />
         {fullName}
       </h1>
 
-      <p className="mt-6 max-w-2xl text-sm text-muted-foreground md:text-base lg:text-lg">
+    <p className="mt-4 max-w-xl text-sm text-muted-foreground md:text-base">
         Your personalized growth journey is
         ready. Explore communities,
         projects, opportunities and
