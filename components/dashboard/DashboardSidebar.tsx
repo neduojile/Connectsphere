@@ -85,8 +85,26 @@ const activeLink =
   "bg-orange-500 text-black font-semibold";
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-72 border-r border-border bg-white dark:bg-zinc-950">
-      <div className="flex h-full flex-col p-4 md:p-4 md:p-8">
+   <aside
+  className="
+  group
+  fixed
+  left-0
+  top-0
+  z-50
+  h-screen
+  w-20
+  hover:w-72
+  transition-all
+  duration-300
+  border-r
+  border-border
+  bg-white
+  dark:bg-zinc-950
+  overflow-hidden
+"
+>
+     <div className="flex h-full flex-col p-4">
 
 
       <div>
@@ -98,24 +116,27 @@ const activeLink =
       alt="ConnectSphere"
       className="h-12 w-12 object-contain"
     />
+<div
+  className="
+    hidden
+    group-hover:block
+  "
+>
+  <h1 className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-2xl font-black text-transparent">
+    ConnectSphere
+  </h1>
 
-    <div>
-
-      <h1 className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-2xl font-black text-transparent">
-        ConnectSphere
-      </h1>
-
-      <p className="text-xs text-zinc-500 dark:text-zinc-400">
-        Growth Command Center
-      </p>
-
-    </div>
+  <p className="text-xs text-zinc-500">
+    Growth Command Center
+  </p>
+</div>
 
   </div>
 <div
   className="
     mt-8
     rounded-2xl
+    overflow-hidden
     border
     border-orange-500/20
     bg-orange-500/5
@@ -158,18 +179,20 @@ const activeLink =
       </div>
     )}
 
-    <div>
+    <div
+  className="
+    hidden
+    group-hover:block
+  "
+>
+  <p className="font-semibold">
+    My Profile
+  </p>
 
-      <p className="font-semibold">
-        My Profile
-      </p>
-
-      <p className="text-xs text-zinc-400">
-        ConnectSphere Member
-      </p>
-
-    </div>
-
+  <p className="text-xs text-zinc-400">
+    ConnectSphere Member
+  </p>
+</div>
   </div>
 
 </div>
@@ -177,14 +200,22 @@ const activeLink =
 
             <Link
               href="/dashboard"
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 transition ${
+            className={`flex items-center justify-center group-hover:justify-start gap-3 rounded-xl px-4 py-3 transition ${
                pathname === "/dashboard"
   ? activeLink
   : inactiveLink
               }`}
             >
-              <LayoutDashboard size={20} />
-              Dashboard
+             <LayoutDashboard size={20} />
+
+<span
+  className="
+    hidden
+    group-hover:inline
+  "
+>
+  Dashboard
+</span>
             </Link>
 
             <Link
@@ -195,8 +226,11 @@ const activeLink =
                   : inactiveLink
               }`}
             >
-              <Users size={20} />
-              Communities
+             <Users size={20} />
+
+<span className="hidden group-hover:inline">
+  Communities
+</span>
             </Link>
 
             <Link
@@ -207,8 +241,11 @@ const activeLink =
                   : inactiveLink
               }`}
             >
-              <Briefcase size={20} />
-              Opportunities
+           <Briefcase size={20} />
+
+<span className="hidden group-hover:inline">
+  Opportunities
+</span>
             </Link>
 
             <Link
@@ -219,8 +256,11 @@ const activeLink =
                   : inactiveLink
               }`}
             >
-              <FolderKanban size={20} />
-              Projects
+           <FolderKanban size={20} />
+
+<span className="hidden group-hover:inline">
+  Projects
+</span>
             </Link>
 
             <Link
@@ -231,8 +271,11 @@ const activeLink =
                   : inactiveLink
               }`}
             >
-              <Bot size={20} />
-              AI Coach
+             <Bot size={20} />
+
+<span className="hidden group-hover:inline">
+  AI Coach
+</span>
             </Link>
 
             <Link
@@ -243,8 +286,11 @@ const activeLink =
                   : inactiveLink
               }`}
             >
-              <User size={20} />
-              Profile
+             <User size={20} />
+
+<span className="hidden group-hover:inline">
+  Profile
+</span>
             </Link>
 
             <Link
@@ -255,26 +301,31 @@ const activeLink =
                   : inactiveLink
               }`}
             >
-              <Settings size={20} />
-              Settings
+             <Settings size={20} />
+
+<span className="hidden group-hover:inline">
+  Settings
+</span>
             </Link>
 
           </nav>
         </div>
 
         <div className="mt-auto pt-6">
-          <button
-            onClick={() => {
-              localStorage.removeItem(
-                "connectsphere_user"
-              );
+        <button
+  onClick={() => {
+    localStorage.removeItem(
+      "connectsphere_user"
+    );
 
-              window.location.href = "/login";
-            }}
-            className="w-full rounded-xl border border-red-500/30 py-3 text-red-500 transition hover:bg-red-500 hover:text-white"
-          >
-            Logout
-          </button>
+    window.location.href = "/login";
+  }}
+  className="w-full rounded-xl border border-red-500/30 py-3 text-red-500 transition hover:bg-red-500 hover:text-white"
+>
+  <span className="hidden group-hover:inline">
+    Logout
+  </span>
+</button>
         </div>
 
       </div>

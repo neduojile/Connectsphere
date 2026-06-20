@@ -18,11 +18,11 @@ export default function AppLayout({
       <FloatingAI />
 
       {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
+  <div className="hidden md:block">
         <DashboardSidebar />
       </div>
 
-     <header className="sticky top-0 z-50 flex items-center justify-between border-b border-orange-500/10 bg-black/90 px-4 py-4 backdrop-blur-xl lg:hidden">
+     <header className="sticky top-0 z-50 flex items-center justify-between border-b border-orange-500/10 bg-black/90 px-4 py-4 backdrop-blur-xl md:hidden">
 
 
 
@@ -33,7 +33,19 @@ export default function AppLayout({
 </header>
 
       {/* Main Content */}
-<main className="mx-auto w-full max-w-[1600px] px-3 py-4 sm:px-5 lg:ml-72 lg:px-8 lg:py-8">
+<main
+  className="
+  mx-auto
+  w-full
+  max-w-[1600px]
+  px-3
+  py-4
+  sm:px-5
+  lg:ml-20
+  lg:px-8
+  lg:py-8
+"
+>
 
         <div className="animate-in fade-in duration-500">
           {children}
